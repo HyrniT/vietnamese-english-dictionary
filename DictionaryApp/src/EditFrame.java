@@ -5,11 +5,13 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class EditFrame extends JFrame implements ActionListener {
-    static Color myTheme = Color.BLUE;
+    static Color myThemeColor = Color.BLUE;
     JButton addButton, removeButton, updateButton;
     Record tempRecord = new Record();
 
     EditFrame() {
+        setTitle("Edit " + ((MainFrame.myEditDictionaryType == 1) ? "English-Vietnamese" : 
+        "Vietnamese-English") + " Dictionary");
         // Container contentPane = getContentPane();
         // contentPane.setLayout(new BorderLayout());
 
@@ -19,7 +21,7 @@ public class EditFrame extends JFrame implements ActionListener {
 
         JLabel editWordLabel = new JLabel("Word:");
         editWordLabel.setFont(new Font("Times", Font.BOLD, 14));
-        editWordLabel.setForeground(myTheme);
+        editWordLabel.setForeground(myThemeColor);
         c.gridx = 0;
         c.gridy = 0;
         c.gridheight = 1;
@@ -43,7 +45,7 @@ public class EditFrame extends JFrame implements ActionListener {
 
         JLabel editMeaningLabel = new JLabel("Meaning:");
         editMeaningLabel.setFont(new Font("Times", Font.BOLD, 14));
-        editMeaningLabel.setForeground(myTheme);
+        editMeaningLabel.setForeground(myThemeColor);
         c.gridx = 0;
         c.gridy = 2;
         c.gridheight = 1;
@@ -121,7 +123,6 @@ public class EditFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 500);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     @Override
