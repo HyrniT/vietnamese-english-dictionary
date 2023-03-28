@@ -5,7 +5,7 @@ public class DictionaryVN2EN extends Dictionary {
 
     private DictionaryVN2EN() {
         try {
-            setRecords(XMLReader.readXML("/Assets/Viet_Anh.xml").getRecords());
+            setRecords(XMLReader.readXML("Assets/Viet_Anh.xml").getRecords());
         } catch (Exception e) {
             e.printStackTrace();
         }

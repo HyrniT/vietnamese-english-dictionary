@@ -10,7 +10,6 @@ import org.w3c.dom.NodeList;
 
 public class XMLReader {
     public static Dictionary readXML(String fileName) throws Exception {
-        System.out.println(fileName);
         File file = new File(fileName);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

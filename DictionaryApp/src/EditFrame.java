@@ -7,9 +7,10 @@ import javax.swing.*;
 public class EditFrame extends JFrame {
     static Color myThemeColor = Color.BLUE;
     JButton addButton, removeButton, updateButton;
-    Record tempRecord;
+    Record newRecord;
     JTable editWordTable;
     DictionaryTableModel model;
+    JTextField editWordField, editMeaningField;
 
     EditFrame() {
         setTitle("Edit " + ((MainFrame.myEditDictionaryType == 1) ? "English-Vietnamese" : "Vietnamese-English")
@@ -33,7 +34,7 @@ public class EditFrame extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         stackPanel.add(editWordLabel, c);
 
-        JTextField editWordField = new JTextField();
+        editWordField = new JTextField();
         editWordField.setPreferredSize(new Dimension(200, 25));
         stackPanel.add(editWordField);
         c.gridx = 0;
@@ -57,7 +58,7 @@ public class EditFrame extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         stackPanel.add(editMeaningLabel, c);
 
-        JTextField editMeaningField = new JTextField();
+        editMeaningField = new JTextField();
         editMeaningField.setPreferredSize(new Dimension(200, 25));
         c.gridx = 0;
         c.gridy = 3;
@@ -130,15 +131,24 @@ public class EditFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == addButton) {
-                    String newWord = JOptionPane.showInputDialog("Input your new word");
-                    if (newWord != null) {
-                        String newMeaning = JOptionPane.showInputDialog("Input meaning of your new word");
-                        if (newMeaning != null) {
-                            tempRecord.setWord(newWord);
-                            tempRecord.setMeaning(newMeaning);
-                            model.addRecord(tempRecord);
-                        }
+                    // String newWord = JOptionPane.showInputDialog("Input your new word");
+                    // if (newWord != null) {
+                    //     String newMeaning = JOptionPane.showInputDialog("Input meaning of your new word");
+                    //     if (newMeaning != null) {
+                    //         tempRecord.setWord(newWord);
+                    //         tempRecord.setMeaning(newMeaning);
+                    //         model.addRecord(tempRecord);
+                    //     }
+                    // }
+                    String newWord = editWordField.getText().trim();
+                    String newMeaning = editMeaningField.getText().trim();
+                    if (newWord.isEmpty() || newMeaning.isEmpty()) {
+                        return;
                     }
+                    newRecord = new Record(newWord, newMeaning);
+                    model.addRecord(newRecord);
+                    model.fireTableDataChanged();
+                    clearFields();
                 }
             }
         });
@@ -172,5 +182,13 @@ public class EditFrame extends JFrame {
     }
     void reload() {
         editWordTable = new JTable(model);
+    }
+
+    void clearFields() {
+        editWordField.setText("");
+        editMeaningField.setText("");
+        addButton.setEnabled(true);
+        updateButton.setEnabled(false);
+        removeButton.setEnabled(false);
     }
 }
