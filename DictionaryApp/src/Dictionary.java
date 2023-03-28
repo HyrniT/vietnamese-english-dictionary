@@ -28,13 +28,13 @@ public class Dictionary {
         this.records = records;
     }
 
-    // public Dictionary importRecords(String fileName) {
-    //     Dictionary dictionary = new Dictionary();
-    //     try {
-    //         dictionary = XMLReader.readXML(fileName);
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     return dictionary;
-    // }
+    public Dictionary importRecords(String fileName) {
+        Dictionary dictionary = new Dictionary();
+        try {
+            dictionary = XMLReader.readXML(fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dictionary;
+    }
 }

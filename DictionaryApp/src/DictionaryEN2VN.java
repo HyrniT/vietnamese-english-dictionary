@@ -36,7 +36,7 @@ public class DictionaryEN2VN extends Dictionary {
     //     super.importRecords(fileName);
     // }
 
-    // public Dictionary importRecords(String fileName) {
-    //     return super.importRecords(fileName);
-    // }
+    public Dictionary importRecords(String fileName) {
+        return super.importRecords(fileName);
+    }
 }

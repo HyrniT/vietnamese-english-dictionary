@@ -29,4 +29,8 @@ public class DictionaryVN2EN extends Dictionary {
     public List<Record> getRecords() {
         return super.getRecords();
     }
+
+    public Dictionary importRecords(String fileName) {
+        return super.importRecords(fileName);
+    }
 }
