@@ -1,16 +1,11 @@
-import java.util.List;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        // Dictionary dictionary = DictionaryEN2VN.getInstance();
-        // XMLWriter.writeXML("./Assets/output.xml", dictionary.getRecords());
+        
+        Dictionary dictionaryEN2VN = DictionaryEN2VN.getInstance();
+        XMLWriter.writeXML("./Assets/output1.xml", dictionaryEN2VN);
 
-        // List<Record> records = XMLReader.readXML("./Assets/Anh_Viet.xml");
-        // XMLWriter.writeXML("./Assets/output.xml", records);
-
-        // Dictionary dictionary = XMLReader.readXML("./Assets/Anh_Viet.xml");
-        // Dictionary dictionary = DictionaryEN2VN.getInstance();
-        Dictionary dictionary = DictionaryEN2VN.getInstance();
-        XMLWriter.writeXML("./Assets/output.xml", dictionary);
+        Dictionary dictionaryVN2EN = DictionaryVN2EN.getInstance();
+        XMLWriter.writeXML("./Assets/output2.xml", dictionaryVN2EN);
     }
 }
