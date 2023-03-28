@@ -27,4 +27,14 @@ public class Dictionary {
     public void setRecords(List<Record> records) {
         this.records = records;
     }
+
+    public void importRecords(String fileName) {
+        Dictionary dictionary = new Dictionary();
+        try {
+            dictionary = XMLReader.readXML(fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.records = dictionary.getRecords();
+    }
 }

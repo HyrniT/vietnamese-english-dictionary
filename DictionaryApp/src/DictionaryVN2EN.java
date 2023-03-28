@@ -1,27 +1,32 @@
 import java.util.List;
 
-public class DictionaryVN2EN {
-    private static Dictionary instance = null;
+public class DictionaryVN2EN extends Dictionary {
+    private static DictionaryVN2EN instance = null;
 
     private DictionaryVN2EN() {
-        Dictionary dictionary = new Dictionary();
         try {
-            List<Record> records = XMLReader.readXML("Assets/Viet_Anh.xml");
-            dictionary.setRecords(records);
+            setRecords(XMLReader.readXML("./Assets/Viet_Anh.xml").getRecords());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        instance = dictionary;
     }
 
-    public static Dictionary getInstance() {
+    public static DictionaryVN2EN getInstance() {
         if (instance == null) {
             synchronized (DictionaryVN2EN.class) {
                 if (instance == null) {
-                    instance = new Dictionary();
+                    instance = new DictionaryVN2EN();
                 }
             }
         }
         return instance;
+    }
+
+    public void setRecords(List<Record> records) {
+        super.setRecords(records);
+    }
+
+    public List<Record> getRecords() {
+        return super.getRecords();
     }
 }
