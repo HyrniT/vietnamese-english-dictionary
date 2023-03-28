@@ -105,7 +105,7 @@ public class MainFrame extends JFrame {
         c.insets = new Insets(0, 15, 0, 0);
         optionContainer.add(inputOptionLabel, c);
 
-        final JComboBox inputOptionComboBox = new JComboBox(languages);
+        final JComboBox<?> inputOptionComboBox = new JComboBox<>(languages);
         c.gridx = 1;
         c.gridy = 0;
         c.gridheight = 1;
@@ -129,7 +129,7 @@ public class MainFrame extends JFrame {
         c.insets = new Insets(0, 20, 0, 0);
         optionContainer.add(outputOptionLabel, c);
 
-        final JComboBox outputOptionComboBox = new JComboBox(languages);
+        final JComboBox<?> outputOptionComboBox = new JComboBox<>(languages);
         c.gridx = 4;
         c.gridy = 0;
         c.gridheight = 1;
@@ -338,8 +338,8 @@ public class MainFrame extends JFrame {
         Object features1[] = { "Word", "Meaning" };
         // End Mock
         JTable favoriteTable = new JTable(data1, features1);
-        favoriteTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-        favoriteTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+        // favoriteTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+        // favoriteTable.getColumnModel().getColumn(1).setPreferredWidth(100);
 
         ListSelectionModel favoriteTableModel = favoriteTable.getSelectionModel();
         favoriteTableModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

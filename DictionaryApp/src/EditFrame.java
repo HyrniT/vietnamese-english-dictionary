@@ -4,14 +4,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class EditFrame extends JFrame implements ActionListener {
+public class EditFrame extends JFrame {
     static Color myThemeColor = Color.BLUE;
     JButton addButton, removeButton, updateButton;
-    Record tempRecord = new Record();
+    Record tempRecord;
+    JTable editWordTable;
+    DictionaryTableModel model;
 
     EditFrame() {
-        setTitle("Edit " + ((MainFrame.myEditDictionaryType == 1) ? "English-Vietnamese" : 
-        "Vietnamese-English") + " Dictionary");
+        setTitle("Edit " + ((MainFrame.myEditDictionaryType == 1) ? "English-Vietnamese" : "Vietnamese-English")
+                + " Dictionary");
         // Container contentPane = getContentPane();
         // contentPane.setLayout(new BorderLayout());
 
@@ -109,33 +111,66 @@ public class EditFrame extends JFrame implements ActionListener {
         c.fill = GridBagConstraints.BOTH;
         stackPanel.add(nonLabel, c);
 
-        addButton.addActionListener(this);
-
-        String[] columnNames = { "ID", "Name", "Age" };
-        Object[][] data = { { "1", "John", "30" }, { "2", "Mary", "25" }, { "3", "Tom", "35" } };
-        JTable editWordTable = new JTable(data, columnNames);
+        // DictionaryTableModel model = null;
+        if (MainFrame.myEditDictionaryType == 1) {
+            model = new DictionaryTableModel(DictionaryEN2VN.getInstance().getRecords());
+        }
+        if (MainFrame.myEditDictionaryType == 2) {
+            model = new DictionaryTableModel(DictionaryVN2EN.getInstance().getRecords());
+        }
+        editWordTable = new JTable(model);
+        
+        JScrollPane scrollPane = new JScrollPane(editWordTable);
         // contentPane.add(editWordTable, BorderLayout.CENTER);
-        add(editWordTable, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
         // contentPane.add(stackPanel);
         add(stackPanel, BorderLayout.EAST);
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == addButton) {
+                    String newWord = JOptionPane.showInputDialog("Input your new word");
+                    if (newWord != null) {
+                        String newMeaning = JOptionPane.showInputDialog("Input meaning of your new word");
+                        if (newMeaning != null) {
+                            tempRecord.setWord(newWord);
+                            tempRecord.setMeaning(newMeaning);
+                            model.addRecord(tempRecord);
+                        }
+                    }
+                }
+            }
+        });
+
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == removeButton) {
+                    int index = editWordTable.getSelectedRow();
+                    if(index >= 0) {
+                        // int ans = JOptionPane.showConfirmDialog(scrollPane, "Are you sure?");
+                        // System.out.println(ans);
+                        // if (ans == JOptionPane.YES_OPTION) {
+                        //     model.removeRecord(index);
+                        //     reload();
+                        // }
+                        JOptionPane.showMessageDialog(scrollPane, "Deleted");
+                        model.removeRecord(index);
+                        reload();
+                    } else {
+                        JOptionPane.showMessageDialog(scrollPane, "Please select a row to remove.");
+                    }
+                }
+            }
+        });
 
         pack();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 500);
         setVisible(true);
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addButton) {
-            String newWord = JOptionPane.showInputDialog("Input your new word");
-            if (newWord != null) {
-                String newMeaning = JOptionPane.showInputDialog("Input meaning of your new word");
-                if (newMeaning != null) {
-                    tempRecord.setWord(newWord);
-                    tempRecord.setMeaning(newMeaning);
-                }
-            }
-        }
+    void reload() {
+        editWordTable = new JTable(model);
     }
 }

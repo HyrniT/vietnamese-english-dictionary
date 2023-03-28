@@ -7,7 +7,8 @@ public class App {
 
         // Dictionary dictionaryVN2EN = DictionaryVN2EN.getInstance();
         // XMLWriter.writeXML("./Assets/output2.xml", dictionaryVN2EN);
-
+        DictionaryEN2VN.getInstance();
+        DictionaryVN2EN.getInstance();
         new MainFrame();
     }
 }
