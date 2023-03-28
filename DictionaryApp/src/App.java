@@ -9,6 +9,7 @@ public class App {
         // XMLWriter.writeXML("./Assets/output.xml", records);
 
         // Dictionary dictionary = XMLReader.readXML("./Assets/Anh_Viet.xml");
+        // Dictionary dictionary = DictionaryEN2VN.getInstance();
         Dictionary dictionary = DictionaryEN2VN.getInstance();
         XMLWriter.writeXML("./Assets/output.xml", dictionary);
     }
