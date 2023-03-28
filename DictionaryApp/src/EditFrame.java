@@ -159,15 +159,16 @@ public class EditFrame extends JFrame {
                 if (e.getSource() == removeButton) {
                     int index = editWordTable.getSelectedRow();
                     if(index >= 0) {
-                        // int ans = JOptionPane.showConfirmDialog(scrollPane, "Are you sure?");
-                        // System.out.println(ans);
-                        // if (ans == JOptionPane.YES_OPTION) {
-                        //     model.removeRecord(index);
-                        //     reload();
-                        // }
-                        JOptionPane.showMessageDialog(scrollPane, "Deleted");
-                        model.removeRecord(index);
-                        reload();
+                        int ans = JOptionPane.showConfirmDialog(scrollPane, "Are you sure?");
+                        System.out.println(ans);
+                        if (ans == JOptionPane.YES_OPTION) {
+                            model.removeRecord(index);
+                            model.removeRecord(index);
+                            model.fireTableDataChanged();
+                        }
+                        // JOptionPane.showMessageDialog(scrollPane, "Deleted");
+                        // model.removeRecord(index);
+                        // model.fireTableDataChanged();
                     } else {
                         JOptionPane.showMessageDialog(scrollPane, "Please select a row to remove.");
                     }
@@ -180,15 +181,12 @@ public class EditFrame extends JFrame {
         setSize(800, 500);
         setVisible(true);
     }
-    void reload() {
-        editWordTable = new JTable(model);
-    }
 
     void clearFields() {
         editWordField.setText("");
         editMeaningField.setText("");
-        addButton.setEnabled(true);
-        updateButton.setEnabled(false);
-        removeButton.setEnabled(false);
+        // addButton.setEnabled(true);
+        // updateButton.setEnabled(false);
+        // removeButton.setEnabled(false);
     }
 }
