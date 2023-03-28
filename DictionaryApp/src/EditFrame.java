@@ -159,16 +159,16 @@ public class EditFrame extends JFrame {
                 if (e.getSource() == removeButton) {
                     int index = editWordTable.getSelectedRow();
                     if(index >= 0) {
-                        int ans = JOptionPane.showConfirmDialog(scrollPane, "Are you sure?");
-                        System.out.println(ans);
-                        if (ans == JOptionPane.YES_OPTION) {
-                            model.removeRecord(index);
-                            model.removeRecord(index);
-                            model.fireTableDataChanged();
-                        }
-                        // JOptionPane.showMessageDialog(scrollPane, "Deleted");
-                        // model.removeRecord(index);
-                        // model.fireTableDataChanged();
+                        // int ans = JOptionPane.showConfirmDialog(scrollPane, "Are you sure?");
+                        // System.out.println(ans);
+                        // if (ans == JOptionPane.YES_OPTION) {
+                        //     model.removeRecord(index);
+                        //     model.removeRecord(index);
+                        //     model.fireTableDataChanged();
+                        // }
+                        JOptionPane.showMessageDialog(scrollPane, "Deleted");
+                        model.removeRecord(index);
+                        model.fireTableDataChanged();
                     } else {
                         JOptionPane.showMessageDialog(scrollPane, "Please select a row to remove.");
                     }
