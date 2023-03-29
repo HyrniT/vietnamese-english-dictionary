@@ -30,10 +30,6 @@ public class DictionaryEN2VN extends Dictionary {
         return super.getRecords();
     }
 
-    // public void importRecords(String fileName) {
-    //     super.importRecords(fileName);
-    // }
-
     public Dictionary importRecords(String fileName) {
         return super.importRecords(fileName);
     }

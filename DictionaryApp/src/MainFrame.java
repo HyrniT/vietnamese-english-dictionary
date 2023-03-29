@@ -21,6 +21,7 @@ public class MainFrame extends JFrame {
     JTextArea outputTextArea, inputTextArea;
 
     MainFrame() {
+
         setTitle("HyrniT's Dictionary");
         // Menu Bar
         JMenuBar menuBar = new JMenuBar();
