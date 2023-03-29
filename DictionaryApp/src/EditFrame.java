@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -16,6 +18,7 @@ public class EditFrame extends JFrame {
     DictionaryTableModel model;
     JTextArea editWordField, editMeaningField;
     JTextField findWordField;
+    int indexFind = 0;
 
     EditFrame() {
         setTitle("Edit " + ((MainFrame.myEditDictionaryType == 1) ? "English-Vietnamese" : "Vietnamese-English")
@@ -25,7 +28,7 @@ public class EditFrame extends JFrame {
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 10, 0, 10);
 
-        JLabel findWordLabel = new JLabel("🔎 Find word:");
+        JLabel findWordLabel = new JLabel("Find word:");
         findWordLabel.setFont(new Font("Times", Font.BOLD, 14));
         findWordLabel.setForeground(myThemeColor);
         c.gridx = 0;
@@ -234,6 +237,7 @@ public class EditFrame extends JFrame {
                         String closestWord = null;
                         String closestMeaning = null;
                         Dictionary dictionary = null;
+                        int index = 0;
 
                         if (MainFrame.myEditDictionaryType == 1) {
                             dictionary = DictionaryEN2VN.getInstance();
@@ -249,10 +253,16 @@ public class EditFrame extends JFrame {
                                 minDistance = distance;
                                 closestWord = record.getWord();
                                 closestMeaning = record.getMeaning();
+                                indexFind = index;
                             }
+                            index++;
                         }
                         editWordField.setText(closestWord);
                         editMeaningField.setText(closestMeaning);
+                        editWordTable.setRowSelectionInterval(indexFind, indexFind);
+
+                        Rectangle rect = editWordTable.getCellRect(indexFind, 0, true); // get the cell rectangle
+                        editWordTable.scrollRectToVisible(rect); // scroll the row into view
                     }
                 }
             }
