@@ -17,8 +17,6 @@ public class EditFrame extends JFrame {
     EditFrame() {
         setTitle("Edit " + ((MainFrame.myEditDictionaryType == 1) ? "English-Vietnamese" : "Vietnamese-English")
                 + " Dictionary");
-        // Container contentPane = getContentPane();
-        // contentPane.setLayout(new BorderLayout());
 
         JPanel stackPanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -121,7 +119,12 @@ public class EditFrame extends JFrame {
         if (MainFrame.myEditDictionaryType == 2) {
             model = new DictionaryTableModel(DictionaryVN2EN.getInstance().getRecords());
         }
+
+        JPanel panel = new JPanel(new BorderLayout());
         editWordTable = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(editWordTable);
+        panel.add(scrollPane);
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
 
         editWordTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -132,9 +135,8 @@ public class EditFrame extends JFrame {
             }
         });
 
-        JScrollPane scrollPane = new JScrollPane(editWordTable);
         
-        add(scrollPane, BorderLayout.CENTER);
+        add(panel, BorderLayout.CENTER);
         add(stackPanel, BorderLayout.EAST);
 
         addButton.addActionListener(new ActionListener() {

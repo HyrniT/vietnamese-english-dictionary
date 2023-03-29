@@ -14,7 +14,9 @@ public class MainFrame extends JFrame {
     static Color myThemeColor = Color.BLUE;
     static int myEditDictionaryType = 0;
     static int mySelectedLanguage = 0;
-    
+
+    JTextArea outputTextArea, inputTextArea;
+
     MainFrame() {
         setTitle("HyrniT's Dictionary");
         // Menu Bar
@@ -187,7 +189,7 @@ public class MainFrame extends JFrame {
         // Text area
         JPanel textAreaContainer = new JPanel(new GridLayout(1, 2, 60, 0));
 
-        JTextArea inputTextArea = new JTextArea();
+        inputTextArea = new JTextArea();
         inputTextArea.setLineWrap(true);
         inputTextArea.setWrapStyleWord(true);
         c.gridx = 0;
@@ -200,11 +202,17 @@ public class MainFrame extends JFrame {
         inputTextArea.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    JOptionPane.showMessageDialog(inputTextArea, "You typed: " + inputTextArea.getText());
+                    // JOptionPane.showMessageDialog(inputTextArea, "You typed: " +
+                    // inputTextArea.getText());
+                    String keyWord = inputTextArea.getText().replace("\n", "").toLowerCase();
+                    boolean isSuccess = search(keyWord);
+                    if (!isSuccess) {
+                        JOptionPane.showMessageDialog(inputTextArea, "Not found!");
+                    }
                 }
             }
         });
-        JTextArea outputTextArea = new JTextArea();
+        outputTextArea = new JTextArea();
         outputTextArea.setText("<meaning of word>");
         outputTextArea.setEditable(false);
         outputTextArea.setLineWrap(true);
@@ -345,8 +353,6 @@ public class MainFrame extends JFrame {
         Object features1[] = { "Word", "Meaning" };
         // End Mock
         JTable favoriteTable = new JTable(data1, features1);
-        // favoriteTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-        // favoriteTable.getColumnModel().getColumn(1).setPreferredWidth(100);
 
         ListSelectionModel favoriteTableModel = favoriteTable.getSelectionModel();
         favoriteTableModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -377,14 +383,7 @@ public class MainFrame extends JFrame {
         JTable recentTable = new JTable(data2, features2);
 
         recentTable.setEnabled(false);
-        // ListSelectionModel recentTableModel = recentTable.getSelectionModel();
-        // recentTableModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        // recentTableModel.addListSelectionListener(new ListSelectionListener() {
-        // @Override
-        // public void valueChanged(ListSelectionEvent e) {
-        // // Code here
-        // }
-        // });
+
         c.gridx = 1;
         c.gridy = 0;
         c.gridheight = 1;
@@ -437,4 +436,30 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    boolean search(String keyWord) {
+        int minDistance = Integer.MAX_VALUE;
+        String closestWord = null;
+        if (mySelectedLanguage == 1) {
+            for (Record record : DictionaryEN2VN.getInstance().getRecords()) {
+                int distance = Helper.LevenshteinDistance(keyWord, record.getWord().toLowerCase());
+                if (distance == 0) {
+                    outputTextArea.setText(record.getMeaning());
+                    return true;
+                } else if (distance < minDistance) {
+                    minDistance = distance;
+                    closestWord = keyWord;
+                }
+                // if (record.getWord() == keyWord) {
+                //     outputTextArea.setText(record.getMeaning());
+                //     return true;
+                // }
+            }
+            // int ans = JOptionPane.showConfirmDialog(inputTextArea, "Sorry!\n\""+keyWord+"\""+" cannot found\n"+
+            // "Another word closest to this is: " +"\""+closestWord+"\". Do you want to change?");
+            // if (ans == JOptionPane.YES_OPTION) {
+            //     // search(closestWord);
+            // }
+        }
+        return false;
+    }
 }
