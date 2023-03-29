@@ -1,9 +1,9 @@
-import java.util.List;
+import java.awt.List;
 
-public class DictionaryEN2VN extends Dictionary {
-    private static DictionaryEN2VN instance = null;
+public class FavoriteWords extends Dictionary {
+    private static FavoriteWords instance = null;
 
-    private DictionaryEN2VN() {
+    private FavoriteWords() {
         try {
             setRecords(XMLReader.readXML("Assets/Anh_Viet.xml").getRecords());
         } catch (Exception e) {
@@ -11,11 +11,11 @@ public class DictionaryEN2VN extends Dictionary {
         }
     }
 
-    public static DictionaryEN2VN getInstance() {
+    public static FavoriteWords getInstance() {
         if (instance == null) {
-            synchronized (DictionaryEN2VN.class) {
+            synchronized (FavoriteWords.class) {
                 if (instance == null) {
-                    instance = new DictionaryEN2VN();
+                    instance = new FavoriteWords();
                 }
             }
         }

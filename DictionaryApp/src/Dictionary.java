@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
 public class Dictionary {
     private List<Record> records;
 
@@ -36,5 +39,15 @@ public class Dictionary {
             e.printStackTrace();
         }
         return dictionary;
+    }
+
+    public void exportRecords(String fileName, Dictionary dictionary) {
+        try {
+            XMLWriter.writeXML(fileName, dictionary);
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
     }
 }

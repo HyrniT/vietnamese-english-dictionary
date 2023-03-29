@@ -7,8 +7,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class MainFrame extends JFrame {
     static Color myThemeColor = Color.BLUE;
@@ -32,7 +35,37 @@ public class MainFrame extends JFrame {
 
         JMenu fileImport = new JMenu("Import");
         JMenuItem fileImportENtoVN = new JMenuItem("English-Vietnamese Dictionary");
+        fileImportENtoVN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Open XML File");
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files", "xml");
+                fileChooser.setFileFilter(filter);
+                int userSelection = fileChooser.showOpenDialog(fileImportENtoVN);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    String fileName = file.getPath();
+                    DictionaryEN2VN.getInstance().importRecords(fileName);
+                }
+            }
+        });
         JMenuItem fileImportVNtoEN = new JMenuItem("Vietnamese-English Dictionary");
+        fileImportVNtoEN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Open XML File");
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files", "xml");
+                fileChooser.setFileFilter(filter);
+                int userSelection = fileChooser.showOpenDialog(fileImportVNtoEN);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    String fileName = file.getPath();
+                    DictionaryVN2EN.getInstance().importRecords(fileName);
+                }
+            }
+        });
         JMenuItem fileImportFavorite = new JMenuItem("Favorite word list");
         fileImport.add(fileImportENtoVN);
         fileImport.add(fileImportVNtoEN);
@@ -41,7 +74,35 @@ public class MainFrame extends JFrame {
 
         JMenu fileExport = new JMenu("Export");
         JMenuItem fileExportENtoVN = new JMenuItem("English-Vietnamese Dictionary");
+        fileExportENtoVN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Save XML File");
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files", "xml");
+                fileChooser.setFileFilter(filter);
+                int userSelection = fileChooser.showSaveDialog(fileExportENtoVN);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    DictionaryEN2VN.getInstance().exportRecords(fileToSave.getAbsolutePath());
+                }
+            }
+        });
         JMenuItem fileExportVNtoEN = new JMenuItem("Vietnamese-English Dictionary");
+        fileExportVNtoEN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Save XML File");
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("XML files", "xml");
+                fileChooser.setFileFilter(filter);
+                int userSelection = fileChooser.showSaveDialog(fileExportVNtoEN);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    DictionaryVN2EN.getInstance().exportRecords(fileToSave.getAbsolutePath());
+                }
+            }
+        });
         JMenuItem fileExportFavorite = new JMenuItem("Favorite word list");
         fileExport.add(fileExportENtoVN);
         fileExport.add(fileExportVNtoEN);

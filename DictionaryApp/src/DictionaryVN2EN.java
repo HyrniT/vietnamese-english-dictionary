@@ -33,4 +33,8 @@ public class DictionaryVN2EN extends Dictionary {
     public Dictionary importRecords(String fileName) {
         return super.importRecords(fileName);
     }
+
+    public void exportRecords(String fileName) {
+        super.exportRecords(fileName, instance);
+    }
 }
