@@ -27,6 +27,8 @@ public class MainFrame extends JFrame {
         menuBar.add(file);
         JMenu edit = new JMenu("Edit");
         menuBar.add(edit);
+        JMenu statistics = new JMenu("Statistics");
+        menuBar.add(statistics);
 
         JMenu fileImport = new JMenu("Import");
         JMenuItem fileImportENtoVN = new JMenuItem("English-Vietnamese Dictionary");
@@ -206,11 +208,9 @@ public class MainFrame extends JFrame {
                         JOptionPane.showMessageDialog(inputTextArea, "Please choose your languge!");
                     } else {
                         String keyWord = inputTextArea.getText().replace("\n", "").toLowerCase();
-                        boolean isSuccess = search(keyWord);
-                        if (!isSuccess) {
+                        if (!search(keyWord)) {
                             JOptionPane.showMessageDialog(inputTextArea, "Not found!");
                         }
-                        inputTextArea.setText(keyWord.replace("\n", ""));
                     }
                 }
             }
@@ -468,7 +468,6 @@ public class MainFrame extends JFrame {
 
         if (ans == JOptionPane.YES_OPTION) {
             return search(closestWord);
-            // return true;
         }
 
         return false;

@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -13,6 +15,7 @@ public class EditFrame extends JFrame {
     JTable editWordTable;
     DictionaryTableModel model;
     JTextArea editWordField, editMeaningField;
+    JTextField findWordField;
 
     EditFrame() {
         setTitle("Edit " + ((MainFrame.myEditDictionaryType == 1) ? "English-Vietnamese" : "Vietnamese-English")
@@ -20,11 +23,11 @@ public class EditFrame extends JFrame {
 
         JPanel stackPanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(5, 10, 5, 10);
+        c.insets = new Insets(5, 10, 0, 10);
 
-        JLabel editWordLabel = new JLabel("Word:");
-        editWordLabel.setFont(new Font("Times", Font.BOLD, 14));
-        editWordLabel.setForeground(myThemeColor);
+        JLabel findWordLabel = new JLabel("🔎 Find word:");
+        findWordLabel.setFont(new Font("Times", Font.BOLD, 14));
+        findWordLabel.setForeground(myThemeColor);
         c.gridx = 0;
         c.gridy = 0;
         c.gridheight = 1;
@@ -32,15 +35,36 @@ public class EditFrame extends JFrame {
         c.weightx = 1.0;
         c.weighty = 1.0;
         c.fill = GridBagConstraints.HORIZONTAL;
-        stackPanel.add(editWordLabel, c);
+        stackPanel.add(findWordLabel, c);
 
-        editWordField = new JTextArea(2,1);
-        editWordField.setLineWrap(true);
-        JScrollPane scrollPane1 = new JScrollPane(editWordField, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        // stackPanel.add(scrollPane1);
+        findWordField = new JTextField();
         c.gridx = 0;
         c.gridy = 1;
+        c.gridheight = 1;
+        c.gridwidth = 1;
+        c.weightx = 1.0;
+        c.weighty = 1.0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        stackPanel.add(findWordField, c);
+
+        JLabel editWordLabel = new JLabel("Word:");
+        editWordLabel.setFont(new Font("Times", Font.BOLD, 14));
+        editWordLabel.setForeground(myThemeColor);
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridheight = 1;
+        c.gridwidth = 1;
+        c.weightx = 1.0;
+        c.weighty = 1.0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        stackPanel.add(editWordLabel, c);
+
+        editWordField = new JTextArea(2, 1);
+        editWordField.setLineWrap(true);
+        JScrollPane scrollPane1 = new JScrollPane(editWordField, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        c.gridx = 0;
+        c.gridy = 3;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -52,7 +76,7 @@ public class EditFrame extends JFrame {
         editMeaningLabel.setFont(new Font("Times", Font.BOLD, 14));
         editMeaningLabel.setForeground(myThemeColor);
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 4;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -60,12 +84,12 @@ public class EditFrame extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         stackPanel.add(editMeaningLabel, c);
 
-        editMeaningField = new JTextArea(10,1);
+        editMeaningField = new JTextArea(10, 1);
         editMeaningField.setLineWrap(true);
         JScrollPane scrollPane2 = new JScrollPane(editMeaningField, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         c.gridx = 0;
-        c.gridy = 3;
+        c.gridy = 5;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -74,9 +98,9 @@ public class EditFrame extends JFrame {
         stackPanel.add(scrollPane2, c);
 
         addButton = new JButton("Add");
-        addButton.setPreferredSize(new Dimension(200, 30));
+        addButton.setPreferredSize(new Dimension(200, 25));
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 6;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -85,9 +109,9 @@ public class EditFrame extends JFrame {
         stackPanel.add(addButton, c);
 
         removeButton = new JButton("Remove");
-        removeButton.setPreferredSize(new Dimension(200, 30));
+        removeButton.setPreferredSize(new Dimension(200, 25));
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 7;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -96,9 +120,9 @@ public class EditFrame extends JFrame {
         stackPanel.add(removeButton, c);
 
         updateButton = new JButton("Update");
-        updateButton.setPreferredSize(new Dimension(200, 30));
+        updateButton.setPreferredSize(new Dimension(200, 25));
         c.gridx = 0;
-        c.gridy = 6;
+        c.gridy = 8;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -108,7 +132,7 @@ public class EditFrame extends JFrame {
 
         JLabel nonLabel = new JLabel();
         c.gridx = 0;
-        c.gridy = 7;
+        c.gridy = 9;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -139,7 +163,6 @@ public class EditFrame extends JFrame {
             }
         });
 
-        
         add(panel, BorderLayout.CENTER);
         add(stackPanel, BorderLayout.EAST);
 
@@ -147,8 +170,6 @@ public class EditFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == addButton) {
-                    // String newWord = editWordField.getText().trim();
-                    // String newMeaning = editMeaningField.getText().trim();
                     String newWord = JOptionPane.showInputDialog(scrollPane, "Enter new word");
                     if (!newWord.isEmpty()) {
                         String newMeaning = JOptionPane.showInputDialog(scrollPane, "Enter meaning of new word");
@@ -198,8 +219,41 @@ public class EditFrame extends JFrame {
                         JOptionPane.showMessageDialog(scrollPane, "Update successfully!");
                         model.fireTableDataChanged();
                     }
-                } else { 
+                } else {
                     JOptionPane.showMessageDialog(scrollPane, "Please select a row to update.");
+                }
+            }
+        });
+
+        findWordField.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (findWordField.getText() != "") {
+                        String keyWord = findWordField.getText().toLowerCase();
+                        int minDistance = Integer.MAX_VALUE;
+                        String closestWord = null;
+                        String closestMeaning = null;
+                        Dictionary dictionary = null;
+
+                        if (MainFrame.myEditDictionaryType == 1) {
+                            dictionary = DictionaryEN2VN.getInstance();
+                        }
+
+                        if (MainFrame.myEditDictionaryType == 2) {
+                            dictionary = DictionaryVN2EN.getInstance();
+                        }
+
+                        for (Record record : dictionary.getRecords()) {
+                            int distance = Helper.LevenshteinDistance(keyWord, record.getWord().toLowerCase());
+                            if (distance < minDistance) {
+                                minDistance = distance;
+                                closestWord = record.getWord();
+                                closestMeaning = record.getMeaning();
+                            }
+                        }
+                        editWordField.setText(closestWord);
+                        editMeaningField.setText(closestMeaning);
+                    }
                 }
             }
         });
