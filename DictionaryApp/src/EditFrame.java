@@ -12,7 +12,7 @@ public class EditFrame extends JFrame {
     Record newRecord;
     JTable editWordTable;
     DictionaryTableModel model;
-    JTextField editWordField, editMeaningField;
+    JTextArea editWordField, editMeaningField;
 
     EditFrame() {
         setTitle("Edit " + ((MainFrame.myEditDictionaryType == 1) ? "English-Vietnamese" : "Vietnamese-English")
@@ -34,9 +34,11 @@ public class EditFrame extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         stackPanel.add(editWordLabel, c);
 
-        editWordField = new JTextField();
-        editWordField.setPreferredSize(new Dimension(200, 25));
-        stackPanel.add(editWordField);
+        editWordField = new JTextArea(2,1);
+        editWordField.setLineWrap(true);
+        JScrollPane scrollPane1 = new JScrollPane(editWordField, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        // stackPanel.add(scrollPane1);
         c.gridx = 0;
         c.gridy = 1;
         c.gridheight = 1;
@@ -44,7 +46,7 @@ public class EditFrame extends JFrame {
         c.weightx = 1.0;
         c.weighty = 1.0;
         c.fill = GridBagConstraints.HORIZONTAL;
-        stackPanel.add(editWordField, c);
+        stackPanel.add(scrollPane1, c);
 
         JLabel editMeaningLabel = new JLabel("Meaning:");
         editMeaningLabel.setFont(new Font("Times", Font.BOLD, 14));
@@ -58,8 +60,10 @@ public class EditFrame extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         stackPanel.add(editMeaningLabel, c);
 
-        editMeaningField = new JTextField();
-        editMeaningField.setPreferredSize(new Dimension(200, 25));
+        editMeaningField = new JTextArea(10,1);
+        editMeaningField.setLineWrap(true);
+        JScrollPane scrollPane2 = new JScrollPane(editMeaningField, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         c.gridx = 0;
         c.gridy = 3;
         c.gridheight = 1;
@@ -67,7 +71,7 @@ public class EditFrame extends JFrame {
         c.weightx = 1.0;
         c.weighty = 1.0;
         c.fill = GridBagConstraints.HORIZONTAL;
-        stackPanel.add(editMeaningField, c);
+        stackPanel.add(scrollPane2, c);
 
         addButton = new JButton("Add");
         addButton.setPreferredSize(new Dimension(200, 30));

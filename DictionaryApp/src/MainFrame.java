@@ -202,12 +202,15 @@ public class MainFrame extends JFrame {
         inputTextArea.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    // JOptionPane.showMessageDialog(inputTextArea, "You typed: " +
-                    // inputTextArea.getText());
-                    String keyWord = inputTextArea.getText().replace("\n", "").toLowerCase();
-                    boolean isSuccess = search(keyWord);
-                    if (!isSuccess) {
-                        JOptionPane.showMessageDialog(inputTextArea, "Not found!");
+                    if (mySelectedLanguage == 0) {
+                        JOptionPane.showMessageDialog(inputTextArea, "Please choose your languge!");
+                    } else {
+                        String keyWord = inputTextArea.getText().replace("\n", "").toLowerCase();
+                        boolean isSuccess = search(keyWord);
+                        if (!isSuccess) {
+                            JOptionPane.showMessageDialog(inputTextArea, "Not found!");
+                        }
+                        inputTextArea.setText(keyWord.replace("\n", ""));
                     }
                 }
             }
@@ -440,15 +443,15 @@ public class MainFrame extends JFrame {
         int minDistance = Integer.MAX_VALUE;
         String closestWord = null;
         Dictionary dictionary = null;
-        if (mySelectedLanguage == 1) {
-            JOptionPane.showMessageDialog(inputTextArea, "Please choose your languge!");
-        }
+
         if (mySelectedLanguage == 1) {
             dictionary = DictionaryEN2VN.getInstance();
         }
+
         if (mySelectedLanguage == 2) {
             dictionary = DictionaryVN2EN.getInstance();
         }
+
         for (Record record : dictionary.getRecords()) {
             int distance = Helper.LevenshteinDistance(keyWord, record.getWord().toLowerCase());
             if (distance == 0) {
@@ -459,12 +462,15 @@ public class MainFrame extends JFrame {
                 closestWord = record.getWord();
             }
         }
+
         int ans = JOptionPane.showConfirmDialog(inputTextArea, "Sorry!\n\"" + keyWord + "\"" + " cannot found\n" +
                 "Another word closest to this is: " + "\"" + closestWord + "\". Do you want to change?");
+
         if (ans == JOptionPane.YES_OPTION) {
             return search(closestWord);
             // return true;
         }
+
         return false;
     }
 }
