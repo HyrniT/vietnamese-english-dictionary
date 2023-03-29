@@ -93,7 +93,7 @@ public class MainFrame extends JFrame {
 
         // Option
         JPanel optionContainer = new JPanel(new GridBagLayout());
-        String languages[] = { "(Select your language)", "Vietnamese", "English" };
+        String languages[] = { "(Select your language)", "English", "Vietnamese" };
 
         JLabel inputOptionLabel = new JLabel("▶ Input language:");
         inputOptionLabel.setFont(new Font("Times", Font.BOLD, 16));
@@ -439,26 +439,31 @@ public class MainFrame extends JFrame {
     boolean search(String keyWord) {
         int minDistance = Integer.MAX_VALUE;
         String closestWord = null;
+        Dictionary dictionary = null;
         if (mySelectedLanguage == 1) {
-            for (Record record : DictionaryEN2VN.getInstance().getRecords()) {
-                int distance = Helper.LevenshteinDistance(keyWord, record.getWord().toLowerCase());
-                if (distance == 0) {
-                    outputTextArea.setText(record.getMeaning());
-                    return true;
-                } else if (distance < minDistance) {
-                    minDistance = distance;
-                    closestWord = keyWord;
-                }
-                // if (record.getWord() == keyWord) {
-                //     outputTextArea.setText(record.getMeaning());
-                //     return true;
-                // }
+            JOptionPane.showMessageDialog(inputTextArea, "Please choose your languge!");
+        }
+        if (mySelectedLanguage == 1) {
+            dictionary = DictionaryEN2VN.getInstance();
+        }
+        if (mySelectedLanguage == 2) {
+            dictionary = DictionaryVN2EN.getInstance();
+        }
+        for (Record record : dictionary.getRecords()) {
+            int distance = Helper.LevenshteinDistance(keyWord, record.getWord().toLowerCase());
+            if (distance == 0) {
+                outputTextArea.setText(record.getMeaning());
+                return true;
+            } else if (distance < minDistance) {
+                minDistance = distance;
+                closestWord = record.getWord();
             }
-            // int ans = JOptionPane.showConfirmDialog(inputTextArea, "Sorry!\n\""+keyWord+"\""+" cannot found\n"+
-            // "Another word closest to this is: " +"\""+closestWord+"\". Do you want to change?");
-            // if (ans == JOptionPane.YES_OPTION) {
-            //     // search(closestWord);
-            // }
+        }
+        int ans = JOptionPane.showConfirmDialog(inputTextArea, "Sorry!\n\"" + keyWord + "\"" + " cannot found\n" +
+                "Another word closest to this is: " + "\"" + closestWord + "\". Do you want to change?");
+        if (ans == JOptionPane.YES_OPTION) {
+            return search(closestWord);
+            // return true;
         }
         return false;
     }
