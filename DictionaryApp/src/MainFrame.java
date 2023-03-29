@@ -12,7 +12,8 @@ import javax.swing.event.ListSelectionListener;
 
 public class MainFrame extends JFrame {
     static Color myThemeColor = Color.BLUE;
-    static int myEditDictionaryType;
+    static int myEditDictionaryType = 0;
+    static int mySelectedLanguage = 0;
     
     MainFrame() {
         setTitle("HyrniT's Dictionary");
@@ -92,7 +93,7 @@ public class MainFrame extends JFrame {
         JPanel optionContainer = new JPanel(new GridBagLayout());
         String languages[] = { "(Select your language)", "Vietnamese", "English" };
 
-        JLabel inputOptionLabel = new JLabel("▶️ Input language:");
+        JLabel inputOptionLabel = new JLabel("▶ Input language:");
         inputOptionLabel.setFont(new Font("Times", Font.BOLD, 16));
         inputOptionLabel.setForeground(myThemeColor);
         c.gridx = 0;
@@ -105,7 +106,7 @@ public class MainFrame extends JFrame {
         c.insets = new Insets(0, 15, 0, 0);
         optionContainer.add(inputOptionLabel, c);
 
-        final JComboBox<?> inputOptionComboBox = new JComboBox<>(languages);
+        final JComboBox inputOptionComboBox = new JComboBox(languages);
         c.gridx = 1;
         c.gridy = 0;
         c.gridheight = 1;
@@ -116,7 +117,7 @@ public class MainFrame extends JFrame {
         c.insets = new Insets(0, 0, 0, 15);
         optionContainer.add(inputOptionComboBox, c);
 
-        JLabel outputOptionLabel = new JLabel("▶️ Output language:");
+        JLabel outputOptionLabel = new JLabel("▶ Output language:");
         outputOptionLabel.setFont(new Font("Times", Font.BOLD, 16));
         outputOptionLabel.setForeground(myThemeColor);
         c.gridx = 3;
@@ -129,7 +130,7 @@ public class MainFrame extends JFrame {
         c.insets = new Insets(0, 20, 0, 0);
         optionContainer.add(outputOptionLabel, c);
 
-        final JComboBox<?> outputOptionComboBox = new JComboBox<>(languages);
+        final JComboBox outputOptionComboBox = new JComboBox(languages);
         c.gridx = 4;
         c.gridy = 0;
         c.gridheight = 1;
@@ -154,10 +155,13 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = inputOptionComboBox.getSelectedIndex();
                 if (selectedIndex == 1) {
+                    mySelectedLanguage = 1;
                     outputOptionComboBox.setSelectedIndex(2);
                 } else if (selectedIndex == 2) {
+                    mySelectedLanguage = 2;
                     outputOptionComboBox.setSelectedIndex(1);
                 } else if (selectedIndex == 0) {
+                    mySelectedLanguage = 0;
                     outputOptionComboBox.setSelectedIndex(0);
                 }
             }
@@ -168,10 +172,13 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = outputOptionComboBox.getSelectedIndex();
                 if (selectedIndex == 1) {
+                    mySelectedLanguage = 2;
                     inputOptionComboBox.setSelectedIndex(2);
                 } else if (selectedIndex == 2) {
+                    mySelectedLanguage = 1;
                     inputOptionComboBox.setSelectedIndex(1);
                 } else if (selectedIndex == 0) {
+                    mySelectedLanguage = 0;
                     inputOptionComboBox.setSelectedIndex(0);
                 }
             }

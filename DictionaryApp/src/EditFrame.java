@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class EditFrame extends JFrame {
     static Color myThemeColor = Color.BLUE;
@@ -120,35 +122,38 @@ public class EditFrame extends JFrame {
             model = new DictionaryTableModel(DictionaryVN2EN.getInstance().getRecords());
         }
         editWordTable = new JTable(model);
-        
+
+        editWordTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = editWordTable.getSelectedRow();
+                editWordField.setText(editWordTable.getValueAt(index, 0) + "");
+                editMeaningField.setText(editWordTable.getValueAt(index, 1) + "");
+            }
+        });
+
         JScrollPane scrollPane = new JScrollPane(editWordTable);
-        // contentPane.add(editWordTable, BorderLayout.CENTER);
+        
         add(scrollPane, BorderLayout.CENTER);
-        // contentPane.add(stackPanel);
         add(stackPanel, BorderLayout.EAST);
 
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == addButton) {
-                    // String newWord = JOptionPane.showInputDialog("Input your new word");
-                    // if (newWord != null) {
-                    //     String newMeaning = JOptionPane.showInputDialog("Input meaning of your new word");
-                    //     if (newMeaning != null) {
-                    //         tempRecord.setWord(newWord);
-                    //         tempRecord.setMeaning(newMeaning);
-                    //         model.addRecord(tempRecord);
-                    //     }
-                    // }
-                    String newWord = editWordField.getText().trim();
-                    String newMeaning = editMeaningField.getText().trim();
-                    if (newWord.isEmpty() || newMeaning.isEmpty()) {
-                        return;
+                    // String newWord = editWordField.getText().trim();
+                    // String newMeaning = editMeaningField.getText().trim();
+                    String newWord = JOptionPane.showInputDialog(scrollPane, "Enter new word");
+                    if (!newWord.isEmpty()) {
+                        String newMeaning = JOptionPane.showInputDialog(scrollPane, "Enter meaning of new word");
+                        if (!newMeaning.isEmpty()) {
+                            newRecord = new Record(newWord, newMeaning);
+                            JOptionPane.showMessageDialog(scrollPane, "Add successfully!");
+                            model.addRecord(newRecord);
+                            model.fireTableDataChanged();
+                            clearFields();
+                        }
                     }
-                    newRecord = new Record(newWord, newMeaning);
-                    model.addRecord(newRecord);
-                    model.fireTableDataChanged();
-                    clearFields();
                 }
             }
         });
@@ -158,20 +163,37 @@ public class EditFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == removeButton) {
                     int index = editWordTable.getSelectedRow();
-                    if(index >= 0) {
-                        // int ans = JOptionPane.showConfirmDialog(scrollPane, "Are you sure?");
-                        // System.out.println(ans);
-                        // if (ans == JOptionPane.YES_OPTION) {
-                        //     model.removeRecord(index);
-                        //     model.removeRecord(index);
-                        //     model.fireTableDataChanged();
-                        // }
-                        JOptionPane.showMessageDialog(scrollPane, "Deleted");
-                        model.removeRecord(index);
-                        model.fireTableDataChanged();
+                    if (index >= 0) {
+                        int ans = JOptionPane.showConfirmDialog(scrollPane, "Are you sure to delete "
+                                + "\"" + editWordTable.getValueAt(index, 0) + "\"", "Delete confirmation",
+                                JOptionPane.YES_NO_OPTION);
+                        if (ans == JOptionPane.YES_OPTION) {
+                            JOptionPane.showMessageDialog(scrollPane, "Delete successfully!");
+                            model.removeRecord(index);
+                            model.fireTableDataChanged();
+                        }
                     } else {
                         JOptionPane.showMessageDialog(scrollPane, "Please select a row to remove.");
                     }
+                }
+            }
+        });
+
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == updateButton) {
+                    int index = editWordTable.getSelectedRow();
+                    if (index >= 0) {
+                        String word = editWordField.getText().trim();
+                        String meaning = editMeaningField.getText().trim();
+                        Record updatedRecord = new Record(word, meaning);
+                        model.updateRecord(index, updatedRecord);
+                        JOptionPane.showMessageDialog(scrollPane, "Update successfully!");
+                        model.fireTableDataChanged();
+                    }
+                } else { 
+                    JOptionPane.showMessageDialog(scrollPane, "Please select a row to update.");
                 }
             }
         });
