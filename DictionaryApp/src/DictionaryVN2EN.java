@@ -3,6 +3,14 @@ import java.util.List;
 public class DictionaryVN2EN extends Dictionary {
     private static DictionaryVN2EN instance = null;
 
+    private DictionaryVN2EN(String fileName) {
+        try {
+            setRecords(XMLReader.readXML(fileName).getRecords());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private DictionaryVN2EN() {
         try {
             setRecords(XMLReader.readXML("Assets/Viet_Anh.xml").getRecords());
@@ -22,6 +30,17 @@ public class DictionaryVN2EN extends Dictionary {
         return instance;
     }
 
+    public static DictionaryVN2EN getInstance(String fileName) {
+        if (instance == null) {
+            synchronized (DictionaryVN2EN.class) {
+                if (instance == null) {
+                    instance = new DictionaryVN2EN(fileName);
+                }
+            }
+        }
+        return instance;
+    }
+
     public void setRecords(List<Record> records) {
         super.setRecords(records);
     }
@@ -30,9 +49,9 @@ public class DictionaryVN2EN extends Dictionary {
         return super.getRecords();
     }
 
-    public Dictionary importRecords(String fileName) {
-        return super.importRecords(fileName);
-    }
+    // public Dictionary importRecords(String fileName) {
+    //     return super.importRecords(fileName);
+    // }
 
     public void exportRecords(String fileName) {
         super.exportRecords(fileName, instance);

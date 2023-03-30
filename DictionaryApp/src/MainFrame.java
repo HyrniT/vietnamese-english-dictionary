@@ -18,24 +18,30 @@ public class MainFrame extends JFrame {
     static int myEditDictionaryType = 0;
     static int mySelectedLanguage = 0;
 
+    JMenuBar menuBar;
+    JMenu file, edit, statistics, fileImport, fileExport, editDictionary;
+    JMenuItem fileImportENtoVN, fileImportVNtoEN, fileImportFavorite,
+    fileExportENtoVN, fileExportVNtoEN, fileExportFavorite, editTheme,
+    editDictionaryENtoVN, editDictionaryVNtoEN;
+
     JTextArea outputTextArea, inputTextArea;
 
     MainFrame() {
 
         setTitle("HyrniT's Dictionary");
         // Menu Bar
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
-        JMenu file = new JMenu("File");
+        file = new JMenu("File");
         menuBar.add(file);
-        JMenu edit = new JMenu("Edit");
+        edit = new JMenu("Edit");
         menuBar.add(edit);
-        JMenu statistics = new JMenu("Statistics");
+        statistics = new JMenu("Statistics");
         menuBar.add(statistics);
 
-        JMenu fileImport = new JMenu("Import");
-        JMenuItem fileImportENtoVN = new JMenuItem("English-Vietnamese Dictionary");
+        fileImport = new JMenu("Import");
+        fileImportENtoVN = new JMenuItem("English-Vietnamese Dictionary");
         fileImportENtoVN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,11 +53,12 @@ public class MainFrame extends JFrame {
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     String fileName = file.getPath();
-                    DictionaryEN2VN.getInstance().importRecords(fileName);
+                    DictionaryEN2VN.getInstance(fileName);
+                    fileExportENtoVN.setEnabled(false);
                 }
             }
         });
-        JMenuItem fileImportVNtoEN = new JMenuItem("Vietnamese-English Dictionary");
+        fileImportVNtoEN = new JMenuItem("Vietnamese-English Dictionary");
         fileImportVNtoEN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,18 +70,19 @@ public class MainFrame extends JFrame {
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     String fileName = file.getPath();
-                    DictionaryVN2EN.getInstance().importRecords(fileName);
+                    DictionaryVN2EN.getInstance(fileName);
+                    fileImportVNtoEN.setEnabled(false);
                 }
             }
         });
-        JMenuItem fileImportFavorite = new JMenuItem("Favorite word list");
+        fileImportFavorite = new JMenuItem("Favorite word list");
         fileImport.add(fileImportENtoVN);
         fileImport.add(fileImportVNtoEN);
         fileImport.add(fileImportFavorite);
         file.add(fileImport);
 
-        JMenu fileExport = new JMenu("Export");
-        JMenuItem fileExportENtoVN = new JMenuItem("English-Vietnamese Dictionary");
+        fileExport = new JMenu("Export");
+        fileExportENtoVN = new JMenuItem("English-Vietnamese Dictionary");
         fileExportENtoVN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,7 +97,7 @@ public class MainFrame extends JFrame {
                 }
             }
         });
-        JMenuItem fileExportVNtoEN = new JMenuItem("Vietnamese-English Dictionary");
+        fileExportVNtoEN = new JMenuItem("Vietnamese-English Dictionary");
         fileExportVNtoEN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,17 +112,17 @@ public class MainFrame extends JFrame {
                 }
             }
         });
-        JMenuItem fileExportFavorite = new JMenuItem("Favorite word list");
+        fileExportFavorite = new JMenuItem("Favorite word list");
         fileExport.add(fileExportENtoVN);
         fileExport.add(fileExportVNtoEN);
         fileExport.add(fileExportFavorite);
         file.add(fileExport);
 
-        JMenuItem editTheme = new JMenuItem("Theme");
+        editTheme = new JMenuItem("Theme");
         edit.add(editTheme);
 
-        JMenu editDictionary = new JMenu("Dictionary");
-        JMenuItem editDictionaryENtoVN = new JMenuItem("English-Vietnamese");
+        editDictionary = new JMenu("Dictionary");
+        editDictionaryENtoVN = new JMenuItem("English-Vietnamese");
         editDictionaryENtoVN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -122,7 +130,7 @@ public class MainFrame extends JFrame {
                 new EditFrame();
             }
         });
-        JMenuItem editDictionaryVNtoEN = new JMenuItem("Vietnamese-English");
+        editDictionaryVNtoEN = new JMenuItem("Vietnamese-English");
         editDictionaryVNtoEN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -384,7 +392,7 @@ public class MainFrame extends JFrame {
         // Recent
         JPanel recentContainer = new JPanel(new BorderLayout());
 
-        JLabel recentLabel = new JLabel("⌛ Recently searched words");
+        JLabel recentLabel = new JLabel("✪ Recently searched words");
         recentLabel.setFont(new Font("Times", Font.BOLD, 16));
         recentLabel.setForeground(myThemeColor);
         recentContainer.add(recentLabel, BorderLayout.WEST);
