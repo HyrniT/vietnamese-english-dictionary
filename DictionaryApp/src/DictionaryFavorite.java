@@ -3,6 +3,21 @@ import java.util.List;
 public class DictionaryFavorite extends Dictionary {
     private static DictionaryFavorite instance = null;
 
+    // private DictionaryFavorite() { 
+    //     // do nothing 
+    // }
+
+    // private static DictionaryFavorite getInstance() {
+    //     if (instance == null) {
+    //         synchronized (DictionaryEN2VN.class) {
+    //             if (instance == null) {
+    //                 instance = new DictionaryFavorite();
+    //             }
+    //         }
+    //     }
+    //     return instance;
+    // }
+
     private DictionaryFavorite(String fileName) {
         try {
             setRecords(XMLReader.readXML(fileName).getRecords());
@@ -10,6 +25,7 @@ public class DictionaryFavorite extends Dictionary {
             e.printStackTrace();
         }
     }
+
 
     public static DictionaryFavorite getInstance(String fileName) {
         if (instance == null) {

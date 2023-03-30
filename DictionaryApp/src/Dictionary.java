@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,6 +14,11 @@ public class Dictionary {
     }
 
     public void addRecord(Record record) {
+        for (Record r : records) {
+            if (Helper.UnicodeToASCII(r.getWord()).equals(Helper.UnicodeToASCII(record.getWord()))) {
+                return;
+            }
+        }
         records.add(record);
     }
 
@@ -29,6 +36,15 @@ public class Dictionary {
 
     public void setRecords(List<Record> records) {
         this.records = records;
+    }
+
+    public void sortRecords() {
+        Collections.sort(records, new Comparator<Record>() {
+            @Override
+            public int compare(Record r1, Record r2) {
+                return r1.getWord().compareToIgnoreCase(r2.getWord());
+            }
+        });
     }
 
     // public Dictionary importRecords(String fileName) {

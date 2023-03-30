@@ -17,18 +17,27 @@ public class MainFrame extends JFrame {
     static Color myThemeColor = Color.BLUE;
     static int myEditDictionaryType = 0;
     static int mySelectedLanguage = 0;
+    Record recentRecord = null;
+    DictionaryTableModel favoriteModel, recentModel;
+    Dictionary favoriteDictionary;
 
     JMenuBar menuBar;
     JMenu file, edit, statistics, fileImport, fileExport, editDictionary;
     JMenuItem fileImportENtoVN, fileImportVNtoEN, fileImportFavorite,
-    fileExportENtoVN, fileExportVNtoEN, fileExportFavorite, editTheme,
-    editDictionaryENtoVN, editDictionaryVNtoEN;
+            fileExportENtoVN, fileExportVNtoEN, fileExportFavorite, editTheme,
+            editDictionaryENtoVN, editDictionaryVNtoEN;
+    JTable favoriteTable, recentTable;
 
     JTextArea outputTextArea, inputTextArea;
 
     MainFrame() {
 
         setTitle("HyrniT's Dictionary");
+
+        // favoriteModel = new
+        // DictionaryTableModel(DictionaryFavorite.getInstance("Assets/FavoriteWords.xml").getRecords());
+        favoriteDictionary = new Dictionary();
+        favoriteModel = new DictionaryTableModel(favoriteDictionary.getRecords());
         // Menu Bar
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
@@ -75,7 +84,7 @@ public class MainFrame extends JFrame {
                 }
             }
         });
-        fileImportFavorite = new JMenuItem("Favorite word list");
+        fileImportFavorite = new JMenuItem("Favorite words");
         fileImport.add(fileImportENtoVN);
         fileImport.add(fileImportVNtoEN);
         fileImport.add(fileImportFavorite);
@@ -112,7 +121,7 @@ public class MainFrame extends JFrame {
                 }
             }
         });
-        fileExportFavorite = new JMenuItem("Favorite word list");
+        fileExportFavorite = new JMenuItem("Favorite words");
         fileExport.add(fileExportENtoVN);
         fileExport.add(fileExportVNtoEN);
         fileExport.add(fileExportFavorite);
@@ -275,11 +284,16 @@ public class MainFrame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     if (mySelectedLanguage == 0) {
-                        JOptionPane.showMessageDialog(inputTextArea, "Please choose your languge!");
+                        JOptionPane.showMessageDialog(inputTextArea, "Please choose your language!", "Alert",
+                                JOptionPane.WARNING_MESSAGE);
                     } else {
                         String keyWord = inputTextArea.getText().replace("\n", "").toLowerCase();
                         if (!search(keyWord)) {
-                            JOptionPane.showMessageDialog(inputTextArea, "Not found!");
+                            JOptionPane.showMessageDialog(inputTextArea, "Not found!", "Alert",
+                                    JOptionPane.WARNING_MESSAGE);
+                            clearFields();
+                        } else {
+                            inputTextArea.setText(recentRecord.getWord());
                         }
                     }
                 }
@@ -328,6 +342,11 @@ public class MainFrame extends JFrame {
                 if (e.isPopupTrigger()) {
                     popupMenu1.show(e.getComponent(), e.getX(), e.getY());
                 }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                favoriteTable.clearSelection();
             }
         });
 
@@ -419,20 +438,18 @@ public class MainFrame extends JFrame {
         JPanel tableContainer = new JPanel(new GridLayout(1, 2, 60, 0));
 
         // Favorite
-        // Start Mock
-        Object data1[][] = { { "apple", "trái táo" },
-                { "banana", "chuối", },
-                { "cherry", "che-ri" } };
-        Object features1[] = { "Word", "Meaning" };
-        // End Mock
-        JTable favoriteTable = new JTable(data1, features1);
+        favoriteTable = new JTable(favoriteModel);
 
         ListSelectionModel favoriteTableModel = favoriteTable.getSelectionModel();
         favoriteTableModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         favoriteTableModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                // Code here
+                int index = favoriteTable.getSelectedRow();
+                if (index >= 0 && index < favoriteDictionary.getRecords().size()) {
+                    inputTextArea.setText(favoriteTable.getValueAt(index, 0) + "");
+                    outputTextArea.setText(favoriteTable.getValueAt(index, 1) + "");
+                }
             }
         });
         c.gridx = 0;
@@ -453,7 +470,7 @@ public class MainFrame extends JFrame {
                 { "cherry", "che-ri" } };
         Object features2[] = { "Word", "Meaning" };
         // End Mock
-        JTable recentTable = new JTable(data2, features2);
+        recentTable = new JTable(data2, features2);
 
         recentTable.setEnabled(false);
 
@@ -503,6 +520,59 @@ public class MainFrame extends JFrame {
             }
         });
 
+        likeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == likeButton) {
+                    if (recentRecord != null) {
+                        // OptionPanel here
+                        int ans = JOptionPane.showConfirmDialog(favoriteTable, "Do you want to add \"" +
+                                recentRecord.getWord() + "\"" + " to your favorite words?", "",
+                                JOptionPane.YES_NO_OPTION);
+                        if (ans == JOptionPane.YES_OPTION) {
+                            favoriteDictionary.addRecord(recentRecord);
+                            favoriteModel.fireTableDataChanged();
+                            recentRecord = null;
+                            clearFields();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(favoriteTable,
+                                "Please search word before adding to favorite list!\nTips: Press Enter to search",
+                                "Alert", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        dislikeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == dislikeButton) {
+                    int index = favoriteTable.getSelectedRow();
+                    if (index >= 0) {
+                        int ans = JOptionPane.showConfirmDialog(favoriteTable, "Are you sure to dislike "
+                                + "\"" + favoriteTable.getValueAt(index, 0) + "\"", "Dislike confirmation",
+                                JOptionPane.YES_NO_OPTION);
+                        if (ans == JOptionPane.YES_OPTION) {
+                            JOptionPane.showMessageDialog(favoriteTable, "Dislike successfully!");
+                            favoriteDictionary.removeRecord(index);
+                            clearFields();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(favoriteTable, "Please select a row to dislike.");
+                    }
+                }
+            }
+        });
+
+        reloadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                favoriteDictionary.sortRecords();
+                favoriteModel.fireTableDataChanged();
+            }
+        });
+
         add(mainPanel);
         setSize(1000, 600);
         setVisible(true);
@@ -526,6 +596,7 @@ public class MainFrame extends JFrame {
             int distance = Helper.LevenshteinDistance(keyWord, record.getWord().toLowerCase());
             if (distance == 0) {
                 outputTextArea.setText(record.getMeaning());
+                recentRecord = record;
                 return true;
             } else if (distance < minDistance) {
                 minDistance = distance;
@@ -533,13 +604,18 @@ public class MainFrame extends JFrame {
             }
         }
 
-        int ans = JOptionPane.showConfirmDialog(inputTextArea, "Sorry!\n\"" + keyWord + "\"" + " cannot found\n" +
-                "Another word closest to this is: " + "\"" + closestWord + "\". Do you want to change?");
+        int ans = JOptionPane.showConfirmDialog(inputTextArea, "Sorry!\n" + "Cannot found:" + "\"" + keyWord +
+                "\".\n" + "Another word closest to this is: " + "\"" + closestWord + "\". Do you want to change?");
 
         if (ans == JOptionPane.YES_OPTION) {
             return search(closestWord);
         }
 
         return false;
+    }
+
+    void clearFields() {
+        inputTextArea.setText("");
+        outputTextArea.setText("");
     }
 }
