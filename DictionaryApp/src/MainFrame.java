@@ -19,7 +19,7 @@ public class MainFrame extends JFrame {
     static int mySelectedLanguage = 0;
     Record recentRecord = null;
     DictionaryTableModel favoriteModel, recentModel;
-    Dictionary favoriteDictionary;
+    Dictionary favoriteDictionary, recentDictionary;
 
     JMenuBar menuBar;
     JMenu file, edit, statistics, fileImport, fileExport, editDictionary;
@@ -34,10 +34,10 @@ public class MainFrame extends JFrame {
 
         setTitle("HyrniT's Dictionary");
 
-        // favoriteModel = new
-        // DictionaryTableModel(DictionaryFavorite.getInstance("Assets/FavoriteWords.xml").getRecords());
         favoriteDictionary = new Dictionary();
         favoriteModel = new DictionaryTableModel(favoriteDictionary.getRecords());
+        recentDictionary = new Dictionary();
+        recentModel = new DictionaryTableModel(recentDictionary.getRecords());
         // Menu Bar
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
@@ -63,7 +63,7 @@ public class MainFrame extends JFrame {
                     File file = fileChooser.getSelectedFile();
                     String fileName = file.getPath();
                     DictionaryEN2VN.getInstance(fileName);
-                    fileExportENtoVN.setEnabled(false);
+                    fileImportENtoVN.setEnabled(false);
                 }
             }
         });
@@ -294,6 +294,8 @@ public class MainFrame extends JFrame {
                             clearFields();
                         } else {
                             inputTextArea.setText(recentRecord.getWord());
+                            recentDictionary.addRecord(recentRecord);
+                            recentModel.fireTableDataChanged();
                         }
                     }
                 }
@@ -464,13 +466,7 @@ public class MainFrame extends JFrame {
         tableContainer.add(scrollPane3, c);
 
         // Recent
-        // Start Mock
-        Object data2[][] = { { "apple", "trái táo" },
-                { "banana", "chuối", },
-                { "cherry", "che-ri" } };
-        Object features2[] = { "Word", "Meaning" };
-        // End Mock
-        recentTable = new JTable(data2, features2);
+        recentTable = new JTable(recentModel);
 
         recentTable.setEnabled(false);
 
@@ -556,6 +552,7 @@ public class MainFrame extends JFrame {
                         if (ans == JOptionPane.YES_OPTION) {
                             JOptionPane.showMessageDialog(favoriteTable, "Dislike successfully!");
                             favoriteDictionary.removeRecord(index);
+                            favoriteModel.fireTableDataChanged();
                             clearFields();
                         }
                     } else {

@@ -3,9 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -13,15 +10,37 @@ import javax.swing.event.ListSelectionListener;
 
 public class EditFrame extends JFrame {
     static Color myThemeColor = Color.BLUE;
-    JButton addButton, removeButton, updateButton;
+    JButton clearButton, addButton, removeButton, updateButton;
     
     JTable editWordTable;
-    DictionaryTableModel modelEN2VN, modelVN2EN;
+    DictionaryTableModel model;
     JTextArea editWordField, editMeaningField;
     JTextField findWordField;
-    int indexFind = 0;
+    int indexFind;
 
     EditFrame() {
+        if (MainFrame.myEditDictionaryType == 1) {
+            model = new DictionaryTableModel(DictionaryEN2VN.getInstance().getRecords());
+        } 
+
+        if (MainFrame.myEditDictionaryType == 2) {
+            model = new DictionaryTableModel(DictionaryVN2EN.getInstance().getRecords());
+        } 
+
+        editWordTable = new JTable(model);
+
+        editWordTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        editWordTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = editWordTable.getSelectedRow();
+                if (index >= 0 && index < model.getRowCount()) {
+                    editWordField.setText(editWordTable.getValueAt(index, 0) + "");
+                    editMeaningField.setText(editWordTable.getValueAt(index, 1) + "");
+                }
+            }
+        });
+
         setTitle("Edit " + ((MainFrame.myEditDictionaryType == 1) ? "English-Vietnamese" : "Vietnamese-English")
                 + " Dictionary");
 
@@ -101,10 +120,21 @@ public class EditFrame extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
         stackPanel.add(scrollPane2, c);
 
+        clearButton = new JButton("Clear");
+        clearButton.setPreferredSize(new Dimension(200, 25));
+        c.gridx = 0;
+        c.gridy = 6;
+        c.gridheight = 1;
+        c.gridwidth = 1;
+        c.weightx = 1.0;
+        c.weighty = 1.0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        stackPanel.add(clearButton, c);
+
         addButton = new JButton("Add");
         addButton.setPreferredSize(new Dimension(200, 25));
         c.gridx = 0;
-        c.gridy = 6;
+        c.gridy = 7;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -115,7 +145,7 @@ public class EditFrame extends JFrame {
         removeButton = new JButton("Remove");
         removeButton.setPreferredSize(new Dimension(200, 25));
         c.gridx = 0;
-        c.gridy = 7;
+        c.gridy = 8;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -126,7 +156,7 @@ public class EditFrame extends JFrame {
         updateButton = new JButton("Update");
         updateButton.setPreferredSize(new Dimension(200, 25));
         c.gridx = 0;
-        c.gridy = 8;
+        c.gridy = 9;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -136,7 +166,7 @@ public class EditFrame extends JFrame {
 
         JLabel nonLabel = new JLabel();
         c.gridx = 0;
-        c.gridy = 9;
+        c.gridy = 10;
         c.gridheight = 1;
         c.gridwidth = 1;
         c.weightx = 1.0;
@@ -144,94 +174,39 @@ public class EditFrame extends JFrame {
         c.fill = GridBagConstraints.BOTH;
         stackPanel.add(nonLabel, c);
 
-        // DictionaryTableModel model = null;
-        if (MainFrame.myEditDictionaryType == 1) {
-            modelEN2VN = new DictionaryTableModel(DictionaryEN2VN.getInstance().getRecords());
-            editWordTable = new JTable(modelEN2VN);
-        }
-        if (MainFrame.myEditDictionaryType == 2) {
-            modelVN2EN = new DictionaryTableModel(DictionaryVN2EN.getInstance().getRecords());
-            editWordTable = new JTable(modelVN2EN);
-        }
-
         JPanel panel = new JPanel(new BorderLayout());
         JScrollPane scrollPane = new JScrollPane(editWordTable);
         panel.add(scrollPane);
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
 
-        editWordTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int index = editWordTable.getSelectedRow();
-                editWordField.setText(editWordTable.getValueAt(index, 0) + "");
-                editMeaningField.setText(editWordTable.getValueAt(index, 1) + "");
-            }
-        });
-
         add(panel, BorderLayout.CENTER);
         add(stackPanel, BorderLayout.EAST);
 
-        // addButton.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-                
-        //         String newWord = JOptionPane.showInputDialog(scrollPane, "Enter new word");
-        //         if (!newWord.isEmpty()) {
-        //             String newMeaning = JOptionPane.showInputDialog(scrollPane, "Enter meaning of new word");
-        //             if (!newMeaning.isEmpty()) {
-        //                 Record newRecord = new Record(newWord, newMeaning);
-        //                 // Rectangle rect = new Rectangle();
-        //                 // int size = 0;
-        //                 JOptionPane.showMessageDialog(scrollPane, "Add successfully!");
-        //                 if (MainFrame.myEditDictionaryType == 1) {
-        //                     // DictionaryEN2VN.getInstance().addRecord(newRecord);
-        //                     modelEN2VN.addRecord(newRecord);
-        //                     // modelEN2VN.fireTableDataChanged();
-        //                     // size = DictionaryEN2VN.getInstance().getRecords().size();
-        //                 }
-        //                 if (MainFrame.myEditDictionaryType == 2) {
-        //                     // DictionaryVN2EN.getInstance().addRecord(newRecord);
-        //                     modelVN2EN.addRecord(newRecord);
-        //                     // modelVN2EN.fireTableDataChanged();
-        //                     // size = DictionaryVN2EN.getInstance().getRecords().size();
-        //                 }
-        //                 // editWordTable.setRowSelectionInterval(size, size);
-        //                 // rect = editWordTable.getCellRect(size, 0, true);
-        //                 // editWordTable.scrollRectToVisible(rect); 
-        //             }
-        //         }
-                
-        //     }
-        // });
-
-        this.addMouseListener(new MouseAdapter() {
+        clearButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseEntered(MouseEvent e) {
-                editWordTable.clearSelection();
+            public void actionPerformed(ActionEvent e) {
+                clearFields();
             }
         });
 
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editWordTable.clearSelection();
                 String word = editWordField.getText().trim();
                 String meaning = editMeaningField.getText().trim();
                 Record newRecord = new Record(word, meaning);
                 if ((!word.isEmpty()) && (!meaning.isEmpty())) {
                     if (MainFrame.myEditDictionaryType == 1) {
-                        // DictionaryEN2VN.getInstance().addRecord(newRecord);
-                        modelEN2VN.addRecord(newRecord);
-                        // modelEN2VN.fireTableDataChanged();
-                        // size = DictionaryEN2VN.getInstance().getRecords().size();
+                        DictionaryEN2VN.getInstance().addRecord(newRecord);
+                        model.fireTableDataChanged();
                     }
                     if (MainFrame.myEditDictionaryType == 2) {
-                        // DictionaryVN2EN.getInstance().addRecord(newRecord);
-                        modelVN2EN.addRecord(newRecord);
-                        // modelVN2EN.fireTableDataChanged();
-                        // size = DictionaryVN2EN.getInstance().getRecords().size();
+                        DictionaryVN2EN.getInstance().addRecord(newRecord);
+                        model.fireTableDataChanged();
                     }
+                    editWordTable.clearSelection();
                     JOptionPane.showMessageDialog(scrollPane, "Add successfully!");
+                    clearFields();
                 } else {
                     JOptionPane.showMessageDialog(scrollPane, "Please enter the word and its meaning!");
                 }
@@ -241,32 +216,28 @@ public class EditFrame extends JFrame {
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == removeButton) {
-                    int index = editWordTable.getSelectedRow();
-                    if (index >= 0) {
-                        int ans = JOptionPane.showConfirmDialog(scrollPane, "Are you sure to delete "
-                                + "\"" + editWordTable.getValueAt(index, 0) + "\"", "Delete confirmation",
-                                JOptionPane.YES_NO_OPTION);
-                        if (ans == JOptionPane.YES_OPTION) {
-                            JOptionPane.showMessageDialog(scrollPane, "Delete successfully!");
-                            if (MainFrame.myEditDictionaryType == 1) {
-                                if (index >= 0 && index < DictionaryVN2EN.getInstance().getRecords().size()) {
-                                    // DictionaryEN2VN.getInstance().removeRecord(index);
-                                    modelEN2VN.removeRecord(index);
-                                    modelVN2EN.fireTableDataChanged();
-                                }
-                            }
-                            if (MainFrame.myEditDictionaryType == 2) {
-                                if (index >= 0 && index < DictionaryVN2EN.getInstance().getRecords().size()) {
-                                    // DictionaryVN2EN.getInstance().removeRecord(index);
-                                    modelVN2EN.removeRecord(index);
-                                    modelVN2EN.fireTableDataChanged();
-                                }
+                int index = editWordTable.getSelectedRow();
+                if (index >= 0) {
+                    int ans = JOptionPane.showConfirmDialog(scrollPane, "Are you sure to delete "
+                            + "\"" + editWordTable.getValueAt(index, 0) + "\"", "Delete confirmation",
+                            JOptionPane.YES_NO_OPTION);
+                    if (ans == JOptionPane.YES_OPTION) {
+                        if (MainFrame.myEditDictionaryType == 1) {
+                            if (index >= 0 && index < DictionaryEN2VN.getInstance().getRecords().size()) {
+                                DictionaryEN2VN.getInstance().removeRecord(index);
+                                model.fireTableDataChanged();
                             }
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(scrollPane, "Please select a row to remove.");
+                        if (MainFrame.myEditDictionaryType == 2) {
+                            if (index >= 0 && index < DictionaryVN2EN.getInstance().getRecords().size()) {
+                                DictionaryVN2EN.getInstance().removeRecord(index);
+                                model.fireTableDataChanged();
+                            }
+                        }
+                        JOptionPane.showMessageDialog(scrollPane, "Delete successfully!");
                     }
+                } else {
+                    JOptionPane.showMessageDialog(scrollPane, "Please select a row to remove.");
                 }
             }
         });
@@ -274,28 +245,25 @@ public class EditFrame extends JFrame {
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == updateButton) {
-                    int index = editWordTable.getSelectedRow();
-                    if (index >= 0) {
-                        String word = editWordField.getText().trim();
-                        String meaning = editMeaningField.getText().trim();
-                        Record updatedRecord = new Record(word, meaning);
-                        JOptionPane.showMessageDialog(scrollPane, "Update successfully!");
-                        if (MainFrame.myEditDictionaryType == 1) {
-                            if (index >= 0 && index < DictionaryEN2VN.getInstance().getRecords().size()) {
-                                // DictionaryEN2VN.getInstance().updateRecord(index, updatedRecord);
-                                modelEN2VN.updateRecord(index, updatedRecord);
-                                modelEN2VN.fireTableDataChanged();
-                            }
-                        }
-                        if (MainFrame.myEditDictionaryType == 2) {
-                            if (index >= 0 && index < DictionaryVN2EN.getInstance().getRecords().size()) {
-                                // DictionaryVN2EN.getInstance().updateRecord(index, updatedRecord);
-                                modelVN2EN.updateRecord(index, updatedRecord);
-                                modelVN2EN.fireTableDataChanged();
-                            }
+                int index = editWordTable.getSelectedRow();
+                if (index >= 0) {
+                    String word = editWordField.getText().trim();
+                    String meaning = editMeaningField.getText().trim();
+                    Record updatedRecord = new Record(word, meaning);
+                    if (MainFrame.myEditDictionaryType == 1) {
+                        if (index >= 0 && index < DictionaryEN2VN.getInstance().getRecords().size()) {
+                            DictionaryEN2VN.getInstance().updateRecord(index, updatedRecord);
+                            model.fireTableDataChanged();
                         }
                     }
+                    if (MainFrame.myEditDictionaryType == 2) {
+                        if (index >= 0 && index < DictionaryVN2EN.getInstance().getRecords().size()) {
+                            DictionaryVN2EN.getInstance().updateRecord(index, updatedRecord);
+                            model.fireTableDataChanged();
+                        }
+                    }
+                    JOptionPane.showMessageDialog(scrollPane, "Update successfully!");
+                    
                 } else {
                     JOptionPane.showMessageDialog(scrollPane, "Please select a row to update.");
                 }
@@ -349,10 +317,8 @@ public class EditFrame extends JFrame {
     }
 
     void clearFields() {
+        findWordField.setText("");
         editWordField.setText("");
         editMeaningField.setText("");
-        // addButton.setEnabled(true);
-        // updateButton.setEnabled(false);
-        // removeButton.setEnabled(false);
     }
 }
