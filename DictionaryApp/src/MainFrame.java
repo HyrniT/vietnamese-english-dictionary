@@ -7,7 +7,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -22,10 +25,10 @@ public class MainFrame extends JFrame {
     Dictionary favoriteDictionary, recentDictionary;
 
     JMenuBar menuBar;
-    JMenu file, edit, statistics, fileImport, fileExport, editDictionary;
+    JMenu file, edit, fileImport, fileExport, editDictionary;
     JMenuItem fileImportENtoVN, fileImportVNtoEN, fileImportFavorite,
             fileExportENtoVN, fileExportVNtoEN, fileExportFavorite, editTheme,
-            editDictionaryENtoVN, editDictionaryVNtoEN;
+            editDictionaryENtoVN, editDictionaryVNtoEN, statistics;
     JTable favoriteTable, recentTable;
 
     JTextArea outputTextArea, inputTextArea;
@@ -46,8 +49,14 @@ public class MainFrame extends JFrame {
         menuBar.add(file);
         edit = new JMenu("Edit");
         menuBar.add(edit);
-        statistics = new JMenu("Statistics");
+        statistics = new JMenuItem("Statistics");
         menuBar.add(statistics);
+        statistics.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new StatisticsFrame();
+            }
+        });
 
         fileImport = new JMenu("Import");
         fileImportENtoVN = new JMenuItem("English-Vietnamese Dictionary");
@@ -570,6 +579,54 @@ public class MainFrame extends JFrame {
             }
         });
 
+        addWindowListener(new WindowListener() {
+
+            @Override
+            public void windowOpened(WindowEvent e) {
+                WordDateSearch.getInstance("Assets/History.txt");
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    WordDateSearch.getInstance().saveToFile("Assets/History.txt");
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'windowClosed'");
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'windowIconified'");
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'windowDeiconified'");
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'windowActivated'");
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'windowDeactivated'");
+            }
+            
+        });
+
         add(mainPanel);
         setSize(1000, 600);
         setVisible(true);
@@ -594,6 +651,7 @@ public class MainFrame extends JFrame {
             if (distance == 0) {
                 outputTextArea.setText(record.getMeaning());
                 recentRecord = record;
+                WordDateSearch.getInstance().addWordDateSearch(record.getWord());
                 return true;
             } else if (distance < minDistance) {
                 minDistance = distance;

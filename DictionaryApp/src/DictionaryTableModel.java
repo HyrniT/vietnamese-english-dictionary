@@ -37,20 +37,20 @@ public class DictionaryTableModel extends AbstractTableModel {
         }
     }
 
-    public void addRecord(Record record) {
-        for (Record r : records) {
-            if (Helper.UnicodeToASCII(r.getWord()).equals(Helper.UnicodeToASCII(record.getWord()))) {
-                return;
-            }
-        }
-        records.add(record);
-    }
+    // public void addRecord(Record record) {
+    //     for (Record r : records) {
+    //         if (Helper.UnicodeToASCII(r.getWord()).equals(Helper.UnicodeToASCII(record.getWord()))) {
+    //             return;
+    //         }
+    //     }
+    //     records.add(record);
+    // }
 
-    public void removeRecord(int index) {
-        records.remove(index);
-    }
+    // public void removeRecord(int index) {
+    //     records.remove(index);
+    // }
 
-    public void updateRecord(int rowIndex, Record record) {
-        records.set(rowIndex, record);
-    }
+    // public void updateRecord(int rowIndex, Record record) {
+    //     records.set(rowIndex, record);
+    // }
 }
