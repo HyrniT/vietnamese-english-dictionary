@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
     Dictionary favoriteDictionary, recentDictionary;
 
     JMenuBar menuBar;
-    JMenu file, edit, fileImport, fileExport, editDictionary;
+    JMenu file, edit, fileImport, fileExport, editDictionary, more;
     JMenuItem fileImportENtoVN, fileImportVNtoEN,
             fileExportENtoVN, fileExportVNtoEN, editTheme,
             editDictionaryENtoVN, editDictionaryVNtoEN, statistics;
@@ -68,8 +68,10 @@ public class MainFrame extends JFrame {
         menuBar.add(file);
         edit = new JMenu("Edit");
         menuBar.add(edit);
+        more = new JMenu("More");
+        menuBar.add(more);
         statistics = new JMenuItem("Statistics");
-        menuBar.add(statistics);
+        more.add(statistics);
         statistics.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

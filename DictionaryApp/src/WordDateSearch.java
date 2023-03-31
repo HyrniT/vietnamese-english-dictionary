@@ -95,12 +95,6 @@ public class WordDateSearch {
         return result;
     }
 
-    // public void saveToFile(String fileName) throws IOException {
-    //     try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
-    //         oos.writeObject(wordDateSearch);
-    //     }
-    // }
-
     public void saveToFile(String fileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Map.Entry<LocalDate, Map<String, Integer>> entry : wordDateSearch.entrySet()) {
