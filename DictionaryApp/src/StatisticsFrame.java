@@ -110,6 +110,8 @@
 // }
 
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -153,6 +155,8 @@ public class StatisticsFrame extends JFrame  {
 
         model = new WordDateSearchTableModel(WordDateSearch.getInstance().getWordFrequencyMap());
         statisticsTable = new JTable(model);
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+        statisticsTable.setBorder(border);
         JScrollPane scrollPane = new JScrollPane(statisticsTable);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 50, 20, 50));
         topPanel.add(scrollPane, BorderLayout.CENTER);
@@ -169,13 +173,7 @@ public class StatisticsFrame extends JFrame  {
         
         addWindowListener(new WindowListener() {
             @Override
-            public void windowOpened(WindowEvent e) {
-                try {
-                    WordDateSearch.getInstance().loadFromFile("Assets/History.txt");
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
+            public void windowOpened(WindowEvent e) { }
 
             @Override
             public void windowClosing(WindowEvent e) {

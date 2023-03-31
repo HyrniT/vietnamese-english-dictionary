@@ -10,11 +10,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
-import java.io.IOException;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 public class MainFrame extends JFrame {
     static Color myThemeColor = Color.BLUE;
@@ -35,11 +36,20 @@ public class MainFrame extends JFrame {
 
     MainFrame() {
 
+        WordDateSearch.getInstance("Assets/History.txt");
         setTitle("HyrniT's Dictionary");
 
-        favoriteDictionary = new Dictionary();
+        try {
+            favoriteDictionary = XMLReader.readXML("Assets/Favorite.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         favoriteModel = new DictionaryTableModel(favoriteDictionary.getRecords());
-        recentDictionary = new Dictionary();
+        try {
+            recentDictionary = XMLReader.readXML("Assets/Recent.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         recentModel = new DictionaryTableModel(recentDictionary.getRecords());
         // Menu Bar
         menuBar = new JMenuBar();
@@ -580,50 +590,42 @@ public class MainFrame extends JFrame {
         });
 
         addWindowListener(new WindowListener() {
-
             @Override
-            public void windowOpened(WindowEvent e) {
-                WordDateSearch.getInstance("Assets/History.txt");
-            }
+            public void windowOpened(WindowEvent e) { }
 
             @Override
             public void windowClosing(WindowEvent e) {
                 try {
-                    WordDateSearch.getInstance().saveToFile("Assets/History.txt");
-                } catch (IOException e1) {
+                    XMLWriter.writeXML("Assets/Favorite.xml", favoriteDictionary);
+                } catch (ParserConfigurationException e1) {
+                    e1.printStackTrace();
+                } catch (TransformerException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    XMLWriter.writeXML("Assets/Recent.xml", recentDictionary);
+                } catch (ParserConfigurationException e1) {
+                    e1.printStackTrace();
+                } catch (TransformerException e1) {
                     e1.printStackTrace();
                 }
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'windowClosed'");
             }
 
             @Override
-            public void windowIconified(WindowEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'windowIconified'");
-            }
+            public void windowIconified(WindowEvent e) { }
 
             @Override
-            public void windowDeiconified(WindowEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'windowDeiconified'");
-            }
+            public void windowDeiconified(WindowEvent e) { }
 
             @Override
-            public void windowActivated(WindowEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'windowActivated'");
-            }
+            public void windowActivated(WindowEvent e) { }
 
             @Override
-            public void windowDeactivated(WindowEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'windowDeactivated'");
-            }
+            public void windowDeactivated(WindowEvent e) { }
             
         });
 
