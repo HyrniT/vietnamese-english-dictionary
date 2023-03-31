@@ -27,8 +27,8 @@ public class MainFrame extends JFrame {
 
     JMenuBar menuBar;
     JMenu file, edit, fileImport, fileExport, editDictionary;
-    JMenuItem fileImportENtoVN, fileImportVNtoEN, fileImportFavorite,
-            fileExportENtoVN, fileExportVNtoEN, fileExportFavorite, editTheme,
+    JMenuItem fileImportENtoVN, fileImportVNtoEN,
+            fileExportENtoVN, fileExportVNtoEN, editTheme,
             editDictionaryENtoVN, editDictionaryVNtoEN, statistics;
     JTable favoriteTable, recentTable;
 
@@ -36,20 +36,29 @@ public class MainFrame extends JFrame {
 
     MainFrame() {
 
-        WordDateSearch.getInstance("Assets/History.txt");
+        
         setTitle("HyrniT's Dictionary");
 
         try {
             favoriteDictionary = XMLReader.readXML("Assets/Favorite.xml");
+            if (favoriteDictionary == null) {
+                favoriteDictionary = new Dictionary();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // favoriteDictionary = new Dictionary();
         favoriteModel = new DictionaryTableModel(favoriteDictionary.getRecords());
         try {
             recentDictionary = XMLReader.readXML("Assets/Recent.xml");
+            if (recentDictionary == null) {
+                recentDictionary = new Dictionary();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // recentDictionary = new Dictionary();
         recentModel = new DictionaryTableModel(recentDictionary.getRecords());
         // Menu Bar
         menuBar = new JMenuBar();
@@ -103,10 +112,8 @@ public class MainFrame extends JFrame {
                 }
             }
         });
-        fileImportFavorite = new JMenuItem("Favorite words");
         fileImport.add(fileImportENtoVN);
         fileImport.add(fileImportVNtoEN);
-        fileImport.add(fileImportFavorite);
         file.add(fileImport);
 
         fileExport = new JMenu("Export");
@@ -140,10 +147,8 @@ public class MainFrame extends JFrame {
                 }
             }
         });
-        fileExportFavorite = new JMenuItem("Favorite words");
         fileExport.add(fileExportENtoVN);
         fileExport.add(fileExportVNtoEN);
-        fileExport.add(fileExportFavorite);
         file.add(fileExport);
 
         editTheme = new JMenuItem("Theme");
@@ -540,19 +545,22 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == likeButton) {
                     if (recentRecord != null) {
-                        // OptionPanel here
-                        int ans = JOptionPane.showConfirmDialog(favoriteTable, "Do you want to add \"" +
-                                recentRecord.getWord() + "\"" + " to your favorite words?", "",
-                                JOptionPane.YES_NO_OPTION);
-                        if (ans == JOptionPane.YES_OPTION) {
-                            favoriteDictionary.addRecord(recentRecord);
-                            favoriteModel.fireTableDataChanged();
-                            recentRecord = null;
-                            clearFields();
-                        }
+                        // int ans = JOptionPane.showConfirmDialog(favoriteTable, "Do you want to add \"" +
+                        //         recentRecord.getWord() + "\"" + " to your favorite words?", "",
+                        //         JOptionPane.YES_NO_OPTION);
+                        // if (ans == JOptionPane.YES_OPTION) {
+                        //     favoriteDictionary.addRecord(recentRecord);
+                        //     favoriteModel.fireTableDataChanged();
+                        //     recentRecord = null;
+                        //     clearFields();
+                        // }
+                        favoriteDictionary.addRecord(recentRecord);
+                        favoriteModel.fireTableDataChanged();
+                        recentRecord = null;
+                        clearFields();
                     } else {
                         JOptionPane.showMessageDialog(favoriteTable,
-                                "Please search word before adding to favorite list!\nTips: Press Enter to search",
+                                "Please search word before adding to favorite list!\nTips: Press \"Enter\" to search",
                                 "Alert", JOptionPane.WARNING_MESSAGE);
                     }
                 }
@@ -565,15 +573,18 @@ public class MainFrame extends JFrame {
                 if (e.getSource() == dislikeButton) {
                     int index = favoriteTable.getSelectedRow();
                     if (index >= 0) {
-                        int ans = JOptionPane.showConfirmDialog(favoriteTable, "Are you sure to dislike "
-                                + "\"" + favoriteTable.getValueAt(index, 0) + "\"", "Dislike confirmation",
-                                JOptionPane.YES_NO_OPTION);
-                        if (ans == JOptionPane.YES_OPTION) {
-                            JOptionPane.showMessageDialog(favoriteTable, "Dislike successfully!");
-                            favoriteDictionary.removeRecord(index);
-                            favoriteModel.fireTableDataChanged();
-                            clearFields();
-                        }
+                        // int ans = JOptionPane.showConfirmDialog(favoriteTable, "Are you sure to dislike "
+                        //         + "\"" + favoriteTable.getValueAt(index, 0) + "\"", "Dislike confirmation",
+                        //         JOptionPane.YES_NO_OPTION);
+                        // if (ans == JOptionPane.YES_OPTION) {
+                        //     JOptionPane.showMessageDialog(favoriteTable, "Dislike successfully!");
+                        //     favoriteDictionary.removeRecord(index);
+                        //     favoriteModel.fireTableDataChanged();
+                        //     clearFields();
+                        // }
+                        favoriteDictionary.removeRecord(index);
+                        favoriteModel.fireTableDataChanged();
+                        clearFields();
                     } else {
                         JOptionPane.showMessageDialog(favoriteTable, "Please select a row to dislike.");
                     }
@@ -628,7 +639,7 @@ public class MainFrame extends JFrame {
             public void windowDeactivated(WindowEvent e) { }
             
         });
-
+        WordDateSearch.getInstance("Assets/History.txt");
         add(mainPanel);
         setSize(1000, 600);
         setVisible(true);

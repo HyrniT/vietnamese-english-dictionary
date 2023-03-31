@@ -1,14 +1,3 @@
-2023-03-31
-hen:2
-gi:1
-mèo:1
-cook:1
-coke:1
-noodle:1
-hello:1
-nude:1
-con ma:1
-nice:1
-chó:2
 2023-04-01
-good:1
+hen:1
+aha:1
