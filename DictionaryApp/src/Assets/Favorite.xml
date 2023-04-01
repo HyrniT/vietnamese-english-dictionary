@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><dictionary>
     <record>
-        <word>1 to 1 relationship</word>
-        <meaning>@1 to 1 relationship
-- (Tech) quan hệ 1 đối 1
-</meaning>
-    </record>
-    <record>
-        <word>1 to many relationship</word>
-        <meaning>@1 to many relationship
-- (Tech) quan hệ 1 đối nhiều
-</meaning>
-    </record>
-    <record>
         <word>1-byte character</word>
         <meaning>@1-byte character
 - (Tech) ký tự 1 bai

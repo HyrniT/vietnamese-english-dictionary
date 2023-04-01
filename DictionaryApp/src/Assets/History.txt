@@ -1,4 +1,29 @@
 2023-04-01
-hen:1
 hi:2
+sư tử:1
+language:1
+noodle:1
+bạn:1
+hen:1
+pop:1
+gấu:1
+heo:1
+gà:2
+chào:1
 aha:1
+cha:1
+thầy:1
+biển:1
+mẹ:1
+mình:1
+nice:1
+chó:1
+cô:1
+meow:1
+meet:1
+là:1
+mèo:2
+gia đình:1
+vịt:1
+hello:5
+dòng họ:1

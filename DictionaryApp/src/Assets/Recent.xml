@@ -1,229 +1,272 @@
 <?xml version="1.0" encoding="UTF-8"?><dictionary>
     <record>
-        <word>(logic học)</word>
-        <meaning>@(logic học)
-- phép quy nạp bằng liệt kê
-- complete i. (logic học) phép quy nạp hoàn toàn
-- descending i. (logic học) phép quy nạp giảm
-- electrical i. (vật lí) độ dịch (chuyển) điện
-- finete i. (logic học) phép quy nạp [toán học, hữu hạn]
-- informal i. (logic học) phép quy nạp xúc tích 
-- mathematical i. phép quy nạp toán học
-- successive i. (logic học) phép quy nạp liên tiếp
-- transfinite i. (logic học) phép quy nạp siêu hạn 
-</meaning>
-    </record>
-    <record>
-        <word>1 to 1 relationship</word>
-        <meaning>@1 to 1 relationship
-- (Tech) quan hệ 1 đối 1
-</meaning>
-    </record>
-    <record>
-        <word>1 to many relationship</word>
-        <meaning>@1 to many relationship
-- (Tech) quan hệ 1 đối nhiều
-</meaning>
-    </record>
-    <record>
-        <word>1-byte character</word>
-        <meaning>@1-byte character
-- (Tech) ký tự 1 bai
-</meaning>
-    </record>
-    <record>
-        <word>1-byte character code</word>
-        <meaning>@1-byte character code
-- (Tech) mã ký tự 1 bai
-</meaning>
-    </record>
-    <record>
-        <word>1-byte character set</word>
-        <meaning>@1-byte character set
-- (Tech) bộ ký tự 1 bai
-</meaning>
-    </record>
-    <record>
-        <word>1-byte character string</word>
-        <meaning>@1-byte character string
-- (Tech) chuỗi ký tự 1 bai
-</meaning>
-    </record>
-    <record>
-        <word>2D (two dimension)</word>
-        <meaning>@2D (two dimension)
-- (Tech) hai chiều, nhị thứ nguyên, phẳng
-</meaning>
-    </record>
-    <record>
-        <word>2D configuration</word>
-        <meaning>@2D configuration
-- (Tech) cấu hình 2 chiều, cấu hình phẳng
-</meaning>
-    </record>
-    <record>
-        <word>2D image</word>
-        <meaning>@2D image
-- (Tech) ảnh 2 chiều, ảnh phẳng
-</meaning>
-    </record>
-    <record>
-        <word>2D module = two-dimensional module</word>
-        <meaning>@2D module = two-dimensional module
-- (Tech) mô đun hai chiều
-</meaning>
-    </record>
-    <record>
-        <word>2-way device</word>
-        <meaning>@2-way device
-- (Tech) thiết bị 2 chiều/thu phát
-</meaning>
-    </record>
-    <record>
-        <word>3D (three dimension)</word>
-        <meaning>@3D (three dimension)
-- (Tech) ba chiều, tam thứ nguyên, nổi
-</meaning>
-    </record>
-    <record>
-        <word>3D (three dimension) calculation</word>
-        <meaning>@3D (three dimension) calculation
-- (Tech) tính toán 3 chiều
-</meaning>
-    </record>
-    <record>
-        <word>3D (three dimension) configuration</word>
-        <meaning>@3D (three dimension) configuration
-- (Tech) cấu hình 3 chiều, cấu hình nổi
-</meaning>
-    </record>
-    <record>
-        <word>3D (three dimension) image</word>
-        <meaning>@3D (three dimension) image
-- (Tech) ảnh 3 chiều, ảnh nổi = stereoscopic image
-</meaning>
-    </record>
-    <record>
-        <word>4th Generation Language (4GL)</word>
-        <meaning>@4th Generation Language (4GL)
-- (Tech) Ngôn ngữ Thế hệ Thứ tư
-</meaning>
-    </record>
-    <record>
-        <word>7-bit ASCII code</word>
-        <meaning>@7-bit ASCII code
-- (Tech) mã ASCII 7 bít
-</meaning>
-    </record>
-    <record>
-        <word>7-bit ASCII code set</word>
-        <meaning>@7-bit ASCII code set
-- (Tech) bộ mã ASCII 7 bít
-</meaning>
-    </record>
-    <record>
-        <word>8-bit character</word>
-        <meaning>@8-bit character
-- (Tech) ký tự 8 bít
-</meaning>
-    </record>
-    <record>
-        <word>8-bit character code</word>
-        <meaning>@8-bit character code
-- (Tech) mã ký tự 8 bít
-</meaning>
-    </record>
-    <record>
-        <word>8-bit character set</word>
-        <meaning>@8-bit character set
-- (Tech) bộ ký tự 8 bít
-</meaning>
-    </record>
-    <record>
-        <word>8-bit character string</word>
-        <meaning>@8-bit character string
-- (Tech) chuỗi ký tự 8 bít
-</meaning>
-    </record>
-    <record>
-        <word>gà</word>
-        <meaning>@gà
-* noun
--cock; fowl; chicken
-=chuồng gà+fowl-house
-* verb
--to give advice on; to help
-
-</meaning>
-    </record>
-    <record>
-        <word>vịt</word>
-        <meaning>@vịt
-* noun
-- duck, drake
-
-</meaning>
-    </record>
-    <record>
-        <word>chó</word>
-        <meaning>@chó
-* noun
-- Cur, ass, donkey
-=đồ chó!+what a cur you are!
-=ngu như chó!+what an ass!
--Dog spaniel boxer saluki
-=chó già giữ xương+to be a dog in the manger
-=treo đầu dê bán thịt chó+he cries wine and sells vinegar
-=chó cắn áo rách+hardships never come alone
-=chó cùng rứt giậu
-
-</meaning>
-    </record>
-    <record>
-        <word>mèo</word>
-        <meaning>@mèo
-* noun
-- cat
-=mèo cái+she cat
-=mèo rừng+wild cat
-
-</meaning>
-    </record>
-    <record>
-        <word>cá</word>
-        <meaning>@cá
-* noun
-- Click, pawl
-- Steel tip, toe plate
-- Fish
-=cá nước ngọt+fresh water fish
-=câu cá+to fish
-=ao sâu tốt cá+in the deepest water is the best fishing
-=Cá Tuế+Minnow
-=Cá Betta
-- (particle denoting fish-like animals living in water)
-=cá sấu+a crocodile
-=cá voi+a whale
-
-</meaning>
-    </record>
-    <record>
-        <word>heo</word>
-        <meaning>@heo
-* noun
-- hog; pig; swine
-=thịt heo+pork
-=bầy heo+heard of swine
-=heo cái+sow
-
-</meaning>
-    </record>
-    <record>
-        <word>hi</word>
-        <meaning>@hi /hai/
+        <word>hello</word>
+        <meaning>@hello /hə'lou/ (halloa) /hə'lou/ (hello) /'he'lou/
 *  thán từ
-- (từ Mỹ,nghĩa Mỹ) này!, ê! (gọi, chào)
+- chào anh!, chào chị!
+- này, này
+- ô này! (tỏ ý ngạc nhiên)
+*  danh từ
+- tiếng chào
+- tiếng gọi "này, này" !
+- tiếng kêu ô này "! (tỏ ý ngạc nhiên)
+*  nội động từ
+- chào
+- gọi "này, này" 
+- kêu "ô này" (tỏ ý ngạc nhiên)
 
+</meaning>
+    </record>
+    <record>
+        <word>biển</word>
+        <meaning>@biển
+* noun
+- Sea
+=cá biển+sea fish
+=tàu biển+a sea-going ship
+=biển người dự mít tinh+a sea of people was attending the meeting
+=biển lúa+a sea of rice plants
+=vùng biển, hải phận+territorial waters
+-Escutcheon (do vua ban)
+-Signboard, poster, plate, post
+=biển quảng cáo+an advertising poster
+=biển chỉ đường
+
+</meaning>
+    </record>
+    <record>
+        <word>là</word>
+        <meaning>@là
+* noun
+- fine silk
+* verb
+- to bẹ
+=thì giờ là tiền bạc+Time is money
+* conj
+- then
+=cảm thán.+how
+=đẹp đẹp là!+how beautiful!
+* verb
+- to press iron
+=bàn là+an iron
+
+</meaning>
+    </record>
+    <record>
+        <word>mình</word>
+        <meaning>@mình
+* noun
+- body. oneself
+
+</meaning>
+    </record>
+    <record>
+        <word>bạn</word>
+        <meaning>@bạn
+* noun
+- Friend, fellow, comrade
+=bạn chiến đấu+comrade-in-arms, companion-in-arms
+=chọn bạn mà chơi+one must choose one's friend
+=phân biệt ta, bạn, thù+to make a difference between ourselves, our friends and our enemies
+=nước bạn+a friendly country
+=bạn trăm năm+spouse, husband or wife (for bad and for good)
+=làm bạn+to marry each other, to become man and wife
+=hai người làm bạn với nhau đã được một con+they married (each other) and have got a child
+
+</meaning>
+    </record>
+    <record>
+        <word>chào</word>
+        <meaning>@chào
+* verb
+- To greet, to salute
+=chào cờ+to salute the flag
+=chào từ biệt+to say good-bye
+=ngả mũ chào thầy giáo+to take off one's hat and greet one's teacher
+=chào chị, tôi về+good-bye madam (miss, sister...), I am going back
+-To solicit
+=nhà hàng chào khách+the shopkeeper solicits customers, the shopkeeper solicits people for their custom
+=chào hàng+to solicit customers to buy one's goods, to solicit custom for one's goods, to cry one's wares
+
+</meaning>
+    </record>
+    <record>
+        <word>dòng họ</word>
+        <meaning>@dòng họ
+* noun
+- family
+
+</meaning>
+    </record>
+    <record>
+        <word>gia đình</word>
+        <meaning>@gia đình
+* noun
+- family; househole
+
+</meaning>
+    </record>
+    <record>
+        <word>mẹ</word>
+        <meaning>@mẹ
+* noun
+- mother
+=mẹ ghẻ+stepmother
+
+</meaning>
+    </record>
+    <record>
+        <word>cha</word>
+        <meaning>@cha
+* noun
+- Father, dad
+=Đức Cha+Right Reverend Father
+-Damn, curse
+=Cha đời cái áo rách này Mất chúng mất bạn vì mày áo ơi+Damn this ragged jacket which has cost me friends and acquaintances
+
+=cha nào con nấy+like father like son
+=cha căng chú kiết+of unknown origin; not to be trusted
+=cha chung không ai khóc+everybody's business is nobody's business
+
+</meaning>
+    </record>
+    <record>
+        <word>cô</word>
+        <meaning>@cô
+* noun
+- Aunt; auntie; Miss; young lady
+=cô bé+A little miss'
+* verb
+- To boil down
+=cô nước đường+To boil down sirup
+
+</meaning>
+    </record>
+    <record>
+        <word>thầy</word>
+        <meaning>@thầy
+* noun
+- teacher, master, father, dad
+
+</meaning>
+    </record>
+    <record>
+        <word>pop</word>
+        <meaning>@pop /pɔp/
+*  danh từ
+- (thông tục) buổi hoà nhạc bình dân
+- đĩa hát bình dân; bài hát bình dân
+*  danh từ
+- (từ Mỹ,nghĩa Mỹ) (như) poppa
+- tiếng nổ bốp, tiếng nổ lốp bốp
+- điểm, vết (đánh dấu cừu...)
+- (thông tục) rượu có bọt, đồ uống có bọt (sâm banh, nước chanh gừng...)
+- (từ lóng) sự cấm cố
+=in pop+ đem cầm cố
+*  nội động từ
+- nổ bốp
+- (+ at) nổ súng vào, bắn
+=to pop at a bird+ bắn con chim
+- thình lình thụt vào, thình lình thò ra, vọt, bật, tạt...
+=to pop down+ thụt xuống
+=to pop in+ thụt vào, tạt vào (thăm ai)
+=to pop out+ thình lình thò ra, vọt ra, bật ra
+=to pop up+ vọt lên, bật lên
+*  ngoại động từ
+- làm nổ bốp; nổ (súng...)
+- thình lình làm thò ra, thình lình làm vọt ra, thình lình làm bật ra...
+=to pop one's head in+ thò đầu vào thình lình
+- hỏi thình lình, hỏi chộp (một câu hỏi)
+- (từ lóng) cấm cố
+- (từ Mỹ,nghĩa Mỹ) rang nở (ngô)
+!to pop off
+- (từ Mỹ,nghĩa Mỹ) bỏ đi bất thình lình
+- (từ Mỹ,nghĩa Mỹ) nói giận dữ không suy nghĩ
+- (từ lóng) nghèo (chết) bất thình lình
+!to pop the question
+- (thông tục) dạm hỏi, gạ hỏi (làm vợ)
+*  phó từ
+- bốp, đánh bốp một cái
+=to go pop+ bật ra đánh bốp một cái
+=pop went the cork+ nút chai bật ra đánh bốp một cái
+*  thán từ
+- đốp!, bốp!
+
+</meaning>
+    </record>
+    <record>
+        <word>meet</word>
+        <meaning>@meet /mi:t/
+*  danh từ
+- cuộc gặp gỡ (của những người đi săn ở một nơi đã hẹn trước, của những nhà thể thao để thi đấu)
+*  ngoại động từ met
+- gặp, gặp gỡ
+=to meet someone in the street+ gặp ai ở ngoài phố
+=to meet somebody half-way+ gặp ai giữa đường; (nghĩa bóng) thoả hiệp với ai
+- đi đón
+=to meet someone at the station+ đi đón ai ở ga
+- (từ Mỹ,nghĩa Mỹ) xin giới thiệu, làm quen (với người nào)
+=meet Mr John Brown+ xin giới thiệu ông Giôn-Brao
+- gặp, vấp phải, đương đầu
+=to meet danger+ gặp nguy hiểm
+=to meet difficulties+ vấp phải khó khăn
+- đáp ứng, thoả mãn, làm vừa lòng
+=to meet a demand+ thoả mãn một yêu cầu
+=to meet the case+ thích ứng
+- nhận, tiếp nhận; chịu đựng, cam chịu
+=he met his reward+ anh ấy nhận phần thưởng
+=to meet one's end (death)+ chết, nhận lấy cái chết
+- thanh toán (hoá đơn...)
+*  nội động từ
+- gặp nhau
+=when shall we meet again?+ khi nào chúng ta lại gặp nhau?
+- gặp gỡ, tụ họp, họp
+=the Committee will meet tomorrow+ ngày mai uỷ ban sẽ họp
+- gặp nhau, nối nhau, tiếp vào nhau, gắn vào nhau
+!to meet with
+- tình cờ gặp
+- gặp phải, vấp phải (khó khăn...)
+!to meet the ear
+- được nghe thấy
+!to meet the eye
+- được trông thấy
+!to meet someone's eye
+- nhìn thấy (bắt gặp) ai đang nhìn mình; nhìn trả lại
+!to make both ends meet
+- thu vén tằn tiện để cuối tháng khỏi thiếu tiền
+*  tính từ
+- (từ cổ,nghĩa cổ) đúng, thích hợp
+=it is meet that+ đúng là
+
+</meaning>
+    </record>
+    <record>
+        <word>noodle</word>
+        <meaning>@noodle /'nu:dl/
+*  danh từ
+- người ngớ ngẩn, người xuẩn ngốc, người khờ dại
+- (từ lóng) cái đầu
+*  danh từ,  (thường) số nhiều
+- (từ Mỹ,nghĩa Mỹ), mì dẹt
+
+</meaning>
+    </record>
+    <record>
+        <word>language</word>
+        <meaning>@language
+- nguôn ngữ
+- natural l. ngôn ngữ tự nhiên
+- number l. ngôn ngữ số, hệ thống đếm
+- pseudo-object l. (logic học) ngôn ngữ đối tượng giả 
+</meaning>
+    </record>
+    <record>
+        <word>meow</word>
+        <meaning>@meow
+* nội động từ
+- kêu meo meo (mèo)
+* danh từ
+- meo meo (tiếng mèo kêu)
 </meaning>
     </record>
 </dictionary>

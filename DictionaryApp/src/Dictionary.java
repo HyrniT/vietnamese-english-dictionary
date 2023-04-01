@@ -3,10 +3,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.swing.table.AbstractTableModel;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-public class Dictionary {
+public class Dictionary extends AbstractTableModel {
     private List<Record> records;
 
     public Dictionary() {
@@ -65,5 +66,38 @@ public class Dictionary {
         } catch (TransformerException e) {
             e.printStackTrace();
         }
+    }
+    public void addRecordAtTop(Record record) {
+        for (int i = 0; i < records.size(); i++) {
+            Record r = records.get(i);
+            if (Helper.UnicodeToASCII(r.getWord()).equals(Helper.UnicodeToASCII(record.getWord()))) {
+                removeRecord(i);
+                break;
+            }
+        }
+        records.add(0, record);
+        if (records.size() > 30) {
+            records.remove(records.size() - 1);
+            fireTableRowsDeleted(records.size() - 1, records.size() - 1);
+        }
+        fireTableRowsInserted(0, 0);
+    }
+
+    @Override
+    public int getRowCount() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRowCount'");
+    }
+
+    @Override
+    public int getColumnCount() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getColumnCount'");
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getValueAt'");
     }
 }

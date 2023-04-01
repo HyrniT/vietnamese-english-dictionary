@@ -215,7 +215,7 @@ public class MainFrame extends JFrame {
         c.insets = new Insets(0, 15, 0, 0);
         optionContainer.add(inputOptionLabel, c);
 
-        final JComboBox inputOptionComboBox = new JComboBox(languages);
+        final JComboBox<String> inputOptionComboBox = new JComboBox<>(languages);
         c.gridx = 1;
         c.gridy = 0;
         c.gridheight = 1;
@@ -239,7 +239,7 @@ public class MainFrame extends JFrame {
         c.insets = new Insets(0, 20, 0, 0);
         optionContainer.add(outputOptionLabel, c);
 
-        final JComboBox outputOptionComboBox = new JComboBox(languages);
+        final JComboBox<String> outputOptionComboBox = new JComboBox<>(languages);
         c.gridx = 4;
         c.gridy = 0;
         c.gridheight = 1;
@@ -320,7 +320,8 @@ public class MainFrame extends JFrame {
                             clearFields();
                         } else {
                             inputTextArea.setText(recentRecord.getWord());
-                            recentDictionary.addRecord(recentRecord);
+                            // recentDictionary.addRecord(recentRecord);
+                            recentDictionary.addRecordAtTop(recentRecord);
                             recentModel.fireTableDataChanged();
                         }
                     }
@@ -328,7 +329,6 @@ public class MainFrame extends JFrame {
             }
         });
         outputTextArea = new JTextArea();
-        outputTextArea.setText("<meaning of word>");
         outputTextArea.setEditable(false);
         outputTextArea.setLineWrap(true);
         outputTextArea.setWrapStyleWord(true);

@@ -186,9 +186,9 @@ public class StatisticsFrame extends JFrame {
 
     public boolean isValidDate(String date1, String date2) {
         try {
-            LocalDate.parse(date1);
-            LocalDate.parse(date2);
-            return true;
+            LocalDate d1 = LocalDate.parse(date1);
+            LocalDate d2 = LocalDate.parse(date2);
+            return !d1.isAfter(d2);
         } catch (DateTimeParseException e) {
             return false;
         }
